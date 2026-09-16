@@ -1,0 +1,55 @@
+run:
+  id: week3-m3-lr3e4-seed17
+  model_id: M3
+  hypothesis: H1-H3-H5
+  seed: 17
+  output_dir: outputs/week3/m3-lr3e4-seed17
+  ledger_path: outputs/week3/runs.jsonl
+data:
+  manifest_path: manifests/v1/partitions.parquet
+  staged_root: data/staged/candidates
+  normalization_path: manifests/v1/normalization.json
+  freeze_summary_path: reports/week2/generated/freeze_summary.json
+  manifest_contract_sha256: 0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a
+  normalization_sha256: 3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05
+  adapter: core10
+  shard_size: 512
+  height: 120
+  width: 120
+augmentation:
+  output_size: 120
+  minimum_crop_area: 0.8
+  maximum_crop_area: 1.0
+  minimum_pair_iou: 0.6
+  spectral_dropout_probability: 0.0
+  maximum_crop_attempts: 32
+model:
+  projector_hidden_dim: 1024
+  projector_output_dim: 256
+loss:
+  invariance_weight: 25.0
+  variance_weight: 25.0
+  covariance_weight: 1.0
+  variance_target: 1.0
+  epsilon: 0.0001
+training:
+  epochs: 10
+  batch_size: 64
+  num_workers: 2
+  learning_rate: 0.0003
+  minimum_learning_rate: 0.000001
+  warmup_epochs: 1
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  amp: true
+  amp_initial_scale: 128.0
+  amp_growth_interval: 2000
+  require_cuda: true
+  log_every_steps: 50
+probe:
+  extraction_batch_size: 128
+  num_workers: 2
+  batch_size: 256
+  epochs: 100
+  learning_rate: 0.01
+  weight_decay: 0.0001

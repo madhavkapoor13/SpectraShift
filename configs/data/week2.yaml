@@ -1,0 +1,59 @@
+dataset:
+  name: BigEarthNet-v2-S2
+  release: "2.0"
+  archive_path: data/raw/BigEarthNet-S2.tar.zst
+  archive_md5: 2245ed2d1a93f6ce637d839bc856396e
+  archive_mirror_revision: 3cf3a5910a5302d449fdb8e570e5b78de24fe07f
+  archive_mirror_urls:
+    BigEarthNet-S2.tar.gzaa: https://huggingface.co/datasets/torchgeo/bigearthnet/resolve/3cf3a5910a5302d449fdb8e570e5b78de24fe07f/V2/BigEarthNet-S2.tar.gzaa?download=true
+    BigEarthNet-S2.tar.gzab: https://huggingface.co/datasets/torchgeo/bigearthnet/resolve/3cf3a5910a5302d449fdb8e570e5b78de24fe07f/V2/BigEarthNet-S2.tar.gzab?download=true
+  archive_part_sha256:
+    BigEarthNet-S2.tar.gzaa: a44e4c9d8dde1affd7107640dd0070b811ca848205363f8dd8f75bebccea0ed3
+    BigEarthNet-S2.tar.gzab: e0bfe57038e07ff09add42e5bff108d221da10a6e45533fd2eb4ac05e6d90dc2
+  archive_part_bytes:
+    BigEarthNet-S2.tar.gzaa: 48318382080
+    BigEarthNet-S2.tar.gzab: 15193663638
+  candidate_manifest: manifests/draft/candidates.parquet
+  sealed_candidate_labels: data/sealed/evaluation_candidate_labels.parquet
+  canonical_bands: [B02, B03, B04, B08, B05, B06, B07, B8A, B11, B12, B01, B09]
+  core_bands: [B02, B03, B04, B08, B05, B06, B07, B8A, B11, B12]
+  target_height: 120
+  target_width: 120
+
+geometry:
+  metric_crs: EPSG:3035
+  exclusion_buffer_m: 2400
+  block_size_m: 12000
+  block_origin_x_m: 0
+  block_origin_y_m: 0
+  minimum_evaluation_blocks: 5
+
+quality:
+  maximum_invalid_fraction: 0.01
+
+split:
+  name: BENv2-SpectraShift-v1
+  caps:
+    U: 20000
+    D: 12000
+    V: 2000
+    I: 3000
+    T-FI: 4000
+    T-PT: 4000
+  minimum_supported_classes: 15
+  class_min_positives: 50
+  class_min_negatives: 50
+
+staging:
+  shard_size: 512
+  output_dir: data/staged/candidates
+  final_manifest_dir: manifests/v1
+  sealed_output_dir: data/sealed/v1
+  report_dir: reports/week2/generated
+  maximum_output_bytes: 19327352832
+
+benchmark:
+  physical_batch: 64
+  num_workers: 2
+  warmup_steps: 50
+  timed_steps: 200

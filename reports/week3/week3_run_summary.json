@@ -1,0 +1,179 @@
+{
+  "week3_complete": true,
+  "week4_selection": {
+    "week4_approved": true,
+    "selected": {
+      "run_id": "week3-m3-lr1e4-seed17",
+      "learning_rate": 0.0001,
+      "validation_macro_average_precision": 0.41424773050469554,
+      "forecast_hours_for_nine_ssl_runs": 3.4417774872008065
+    },
+    "candidates": [
+      {
+        "run_id": "week3-m3-lr1e4-seed17",
+        "learning_rate": 0.0001,
+        "validation_macro_average_precision": 0.41424773050469554,
+        "forecast_hours_for_nine_ssl_runs": 3.4417774872008065
+      },
+      {
+        "run_id": "week3-m3-lr3e4-seed17",
+        "learning_rate": 0.0003,
+        "validation_macro_average_precision": 0.37535728389517586,
+        "forecast_hours_for_nine_ssl_runs": 3.4912653048026185
+      }
+    ],
+    "tie_tolerance": 0.005,
+    "tie_preference_learning_rate": 0.0003
+  },
+  "ssl_pilots": [
+    {
+      "run_id": "week3-m3-lr1e4-seed17",
+      "model_id": "M3",
+      "hypothesis": "H1-H3-H5",
+      "seed": 17,
+      "learning_rate": 0.0001,
+      "epochs": 10,
+      "steps": 3120,
+      "config_sha256": "1cff70d072d6912127d30af8e590b22853f069fddd420458a25455ce5777c679",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "e54ba1ac6a9f38ccc1a13755e4e36b6e9e173cce8ec5db82857dedb4364e9898",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 575.464717845,
+      "median_step_seconds": 0.07354225400001724,
+      "peak_cuda_bytes": 777553408,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.3824197208000896,
+      "forecast_hours_for_nine_ssl_runs": 3.4417774872008065,
+      "final_epoch": {
+        "epoch": 9,
+        "total": 10.633830250837864,
+        "invariance": 0.014895657850548817,
+        "variance": 0.08397762344863552,
+        "covariance": 8.161998195525927,
+        "mean_std": 0.9672453241088451,
+        "median_mean_std": 0.9673431515693665,
+        "projector_effective_rank": 49.47897720336914,
+        "encoder_effective_rank": 28.45033836364746
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week3-pilots/week3-m3-lr1e4-seed17/checkpoint-epoch-010.pt",
+      "checkpoint_sha256": "08abe41e9311d79149aaca7e22dfe72243b1eaed8c81e14f06fa0bb7bdb180fc"
+    },
+    {
+      "run_id": "week3-m3-lr3e4-seed17",
+      "model_id": "M3",
+      "hypothesis": "H1-H3-H5",
+      "seed": 17,
+      "learning_rate": 0.0003,
+      "epochs": 10,
+      "steps": 3120,
+      "config_sha256": "cff2dd19c4fed091dddf5bc3cdf6af807290796e1f84d73beee417e665144064",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "e54ba1ac6a9f38ccc1a13755e4e36b6e9e173cce8ec5db82857dedb4364e9898",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 478.9819326290001,
+      "median_step_seconds": 0.07459968600005595,
+      "peak_cuda_bytes": 777815552,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.38791836720029094,
+      "forecast_hours_for_nine_ssl_runs": 3.4912653048026185,
+      "final_epoch": {
+        "epoch": 9,
+        "total": 9.8051656240072,
+        "invariance": 0.015039022558201581,
+        "variance": 0.07038588472045003,
+        "covariance": 7.669542925480084,
+        "mean_std": 0.97644515392872,
+        "median_mean_std": 0.9764092862606049,
+        "projector_effective_rank": 54.62653350830078,
+        "encoder_effective_rank": 34.329280853271484
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week3-pilots/week3-m3-lr3e4-seed17/checkpoint-epoch-010.pt",
+      "checkpoint_sha256": "6ee8943b3e3be1c3d4e604dece426ea27a0e9f7dcedbde1cc66415876552f55c"
+    }
+  ],
+  "linear_probes": [
+    {
+      "run_id": "week3-m3-lr1e4-seed17",
+      "fitted_on": "D",
+      "selected_on": "V",
+      "train_patches": 12000,
+      "validation_patches": 2000,
+      "feature_dimension": 512,
+      "best_epoch": 16,
+      "validation_macro_average_precision": 0.41424773050469554,
+      "elapsed_seconds": 13.907397244000094,
+      "head_path": "/kaggle/working/spectrashift-week3-pilots/week3-m3-lr1e4-seed17/probe/linear_probe.pt",
+      "head_sha256": "56746a26300d2235053e4ddf6153d8918b72ee0f8ecfe63d922a0d7cf2026983"
+    },
+    {
+      "run_id": "week3-m3-lr3e4-seed17",
+      "fitted_on": "D",
+      "selected_on": "V",
+      "train_patches": 12000,
+      "validation_patches": 2000,
+      "feature_dimension": 512,
+      "best_epoch": 57,
+      "validation_macro_average_precision": 0.37535728389517586,
+      "elapsed_seconds": 13.778811288000043,
+      "head_path": "/kaggle/working/spectrashift-week3-pilots/week3-m3-lr3e4-seed17/probe/linear_probe.pt",
+      "head_sha256": "33a04fb59faef5894c7512067931b9833d480a9736b1fb1d62d908ed1ec32220"
+    }
+  ],
+  "evaluation_labels_loaded": false
+}

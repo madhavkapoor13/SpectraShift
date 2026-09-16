@@ -1,0 +1,75 @@
+{
+  "source": {
+    "staging_notebook_version": 3,
+    "completion_notebook_succeeded": true,
+    "completion_runtime_seconds": 85.5,
+    "accelerator": "GPU T4 x2"
+  },
+  "staging": {
+    "candidate_patches": 50200,
+    "archive_format": "split-tar-gzip",
+    "archive_part_sha256": {
+      "BigEarthNet-S2.tar.gzaa": "a44e4c9d8dde1affd7107640dd0070b811ca848205363f8dd8f75bebccea0ed3",
+      "BigEarthNet-S2.tar.gzab": "e0bfe57038e07ff09add42e5bff108d221da10a6e45533fd2eb4ac05e6d90dc2"
+    },
+    "archive_part_bytes": {
+      "BigEarthNet-S2.tar.gzaa": 48318382080,
+      "BigEarthNet-S2.tar.gzab": 15193663638
+    },
+    "selected_archive_members": 602400,
+    "complete_patches": 50200,
+    "incomplete_patches": 0,
+    "output_bytes": 18450935456
+  },
+  "freeze": {
+    "status": "frozen",
+    "split_name": "BENv2-SpectraShift-v1",
+    "manifest_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+    "partition_counts": {
+      "D": 12000,
+      "I": 3000,
+      "T-FI": 4000,
+      "T-PT": 4000,
+      "U": 20000,
+      "V": 2000
+    },
+    "block_counts": {
+      "D": 1027,
+      "I": 211,
+      "T-FI": 978,
+      "T-PT": 267,
+      "U": 1047,
+      "V": 204
+    },
+    "supported_classes": 16,
+    "support_gate": true,
+    "evaluation_block_gate": true,
+    "evaluation_labels_loaded": false,
+    "training_approved": true
+  },
+  "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+  "throughput": {
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "physical_batch": 64,
+    "warmup_steps": 50,
+    "timed_steps": 200,
+    "elapsed_seconds": 42.30362112499995,
+    "seconds_per_step": 0.21151810562499976,
+    "paired_examples_per_second": 302.5745706774887,
+    "peak_cuda_bytes": 1133095424,
+    "forecast_hours_per_60_epoch_run": 1.1034194510104154,
+    "forecast_hours_for_nine_ssl_runs": 9.93077505909374,
+    "provisional": true
+  },
+  "smoke": {
+    "partition_counts_verified": true,
+    "label_isolation": true,
+    "device": "cuda",
+    "steps": 6,
+    "elapsed_seconds": 0.362419583000019,
+    "training_micro_f1": 0.9596412556053812,
+    "overfit_gate": true
+  },
+  "week2_complete": true
+}

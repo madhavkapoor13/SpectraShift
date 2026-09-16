@@ -1,0 +1,100 @@
+from __future__ import annotations
+
+import hashlib
+import json
+
+import numpy as np
+
+
+def _validate(targets: np.ndarray, scores: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    targets = np.asarray(targets)
+    scores = np.asarray(scores, dtype=np.float64)
+    if targets.shape != scores.shape or targets.ndim != 2:
+        raise ValueError("targets and scores must share shape [N,C]")
+    if not np.isin(targets, [0, 1]).all() or not np.isfinite(scores).all():
+        raise ValueError("targets must be binary and scores must be finite")
+    return targets.astype(bool), scores
+
+
+def average_precision(targets: np.ndarray, scores: np.ndarray) -> float:
+    targets = np.asarray(targets, dtype=bool)
+    scores = np.asarray(scores, dtype=np.float64)
+    positives = int(targets.sum())
+    if positives == 0:
+        return float("nan")
+    order = np.argsort(-scores, kind="stable")
+    ranked = targets[order]
+    precision = np.cumsum(ranked) / np.arange(1, len(ranked) + 1)
+    return float(precision[ranked].sum() / positives)
+
+
+def fit_validation_thresholds(
+    targets: np.ndarray,
+    scores: np.ndarray,
+    grid: np.ndarray | None = None,
+) -> dict[str, object]:
+    targets, scores = _validate(targets, scores)
+    grid = np.asarray(grid if grid is not None else np.linspace(0.05, 0.95, 19))
+    thresholds = []
+    for class_index in range(targets.shape[1]):
+        truth = targets[:, class_index]
+        best = (float("-inf"), 0.5)
+        for threshold in grid:
+            prediction = scores[:, class_index] >= threshold
+            tp = int((prediction & truth).sum())
+            fp = int((prediction & ~truth).sum())
+            fn = int((~prediction & truth).sum())
+            f1 = 2 * tp / max(2 * tp + fp + fn, 1)
+            candidate = (f1, -abs(float(threshold) - 0.5), -float(threshold))
+            if candidate > (best[0], -abs(best[1] - 0.5), -best[1]):
+                best = (f1, float(threshold))
+        thresholds.append(best[1])
+    payload = {"fitted_on": "V", "thresholds": thresholds}
+    payload["sha256"] = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    return payload
+
+
+def expected_calibration_error(
+    targets: np.ndarray, scores: np.ndarray, bins: int = 15
+) -> float:
+    targets, scores = _validate(targets, scores)
+    if np.any((scores < 0) | (scores > 1)):
+        raise ValueError("calibration scores must be probabilities")
+    truth = targets.ravel()
+    probability = scores.ravel()
+    edges = np.linspace(0, 1, bins + 1)
+    total = len(probability)
+    ece = 0.0
+    for index in range(bins):
+        include = (probability >= edges[index]) & (
+            probability <= edges[index + 1] if index == bins - 1 else probability < edges[index + 1]
+        )
+        if include.any():
+            ece += include.mean() * abs(probability[include].mean() - truth[include].mean())
+    return float(ece)
+
+
+def multilabel_metrics(
+    targets: np.ndarray,
+    scores: np.ndarray,
+    thresholds: float | np.ndarray = 0.5,
+) -> dict[str, object]:
+    targets, scores = _validate(targets, scores)
+    threshold_array = np.broadcast_to(np.asarray(thresholds, dtype=np.float64), (targets.shape[1],))
+    prediction = scores >= threshold_array[None]
+    tp = (prediction & targets).sum(axis=0)
+    fp = (prediction & ~targets).sum(axis=0)
+    fn = (~prediction & targets).sum(axis=0)
+    per_class_f1 = np.divide(2 * tp, 2 * tp + fp + fn, out=np.full_like(tp, np.nan, dtype=float), where=(2 * tp + fp + fn) > 0)
+    recall = np.divide(tp, tp + fn, out=np.full_like(tp, np.nan, dtype=float), where=(tp + fn) > 0)
+    aps = np.array([average_precision(targets[:, i], scores[:, i]) for i in range(targets.shape[1])])
+    total_tp, total_fp, total_fn = int(tp.sum()), int(fp.sum()), int(fn.sum())
+    return {
+        "macro_average_precision": float(np.nanmean(aps)),
+        "micro_f1": 2 * total_tp / max(2 * total_tp + total_fp + total_fn, 1),
+        "macro_f1": float(np.nanmean(per_class_f1)),
+        "expected_calibration_error": expected_calibration_error(targets, scores),
+        "per_class_average_precision": aps.tolist(),
+        "per_class_f1": per_class_f1.tolist(),
+        "per_class_recall": recall.tolist(),
+    }

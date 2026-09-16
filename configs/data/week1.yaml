@@ -1,0 +1,62 @@
+dataset:
+  name: BigEarthNet-v2-S2
+  release: "2.0"
+  doi: "10.5281/zenodo.10891137"
+  metadata_path: data/raw/metadata.parquet
+  metadata_url: https://huggingface.co/datasets/torchgeo/bigearthnet/resolve/main/V2/metadata.parquet
+  official_metadata_url: https://zenodo.org/records/10891137/files/metadata.parquet?download=1
+  expected_md5: 55687065e77b6d0b0f1ff604a6e7b49c
+  license: CDLA-Permissive-1.0
+  label_classes:
+    - Agro-forestry areas
+    - Arable land
+    - Beaches, dunes, sands
+    - Broad-leaved forest
+    - Coastal wetlands
+    - Complex cultivation patterns
+    - Coniferous forest
+    - Industrial or commercial units
+    - Inland waters
+    - Inland wetlands
+    - Land principally occupied by agriculture, with significant areas of natural vegetation
+    - Marine waters
+    - Mixed forest
+    - Moors, heathland and sclerophyllous vegetation
+    - Natural grassland and sparsely vegetated areas
+    - Pastures
+    - Permanent crops
+    - Transitional woodland, shrub
+    - Urban fabric
+
+split:
+  name: BENv2-SpectraShift-draft-v0
+  seed: 1729
+  trials: 256
+  target_countries: [Finland, Portugal]
+  ratios:
+    source_train: 0.70
+    source_validation: 0.15
+    source_test: 0.15
+  caps:
+    U: 20000
+    D: 12000
+    V: 2000
+    I: 3000
+    T-FI: 4000
+    T-PT: 4000
+  candidate_caps:
+    U: 22000
+    D: 13200
+    V: 2500
+    I: 3500
+    T-FI: 4500
+    T-PT: 4500
+  minimum_evaluation_groups: 5
+  minimum_supported_classes: 15
+  class_min_positives: 50
+  class_min_negatives: 50
+
+output:
+  manifest_dir: manifests/draft
+  sealed_dir: data/sealed
+  report_dir: reports/week1/generated

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spectrashift"
+version = "0.1.0"
+description = "Multispectral self-supervised learning under spectral and geographic shift"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "pyarrow>=14",
+  "PyYAML>=6",
+  "matplotlib>=3.8",
+  "mgrs>=1.5",
+  "pyproj>=3.6",
+  "rasterio>=1.3",
+  "shapely>=2.0",
+  "zstandard>=0.22",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+train = ["torch>=2.3", "torchvision>=0.18"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
