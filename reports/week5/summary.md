@@ -2,7 +2,7 @@
 
 Date: 17 September 2026  
 Stage: controlled downstream anchor experiments  
-Status: contracts, pilots, and seeds 17/29 verified; 15 final Kaggle runs pending
+Status: contracts, pilots, and all 45 final runs verified; CPU aggregate pending
 
 The pipeline freezes deterministic nested D subsets for seeds 17, 29, and 43 at 1%, 5%, 10%, 25%, 50%, and 100%. Week 5 trains the 1%, 10%, and 100% anchors for M0-M4 after a bounded 15-run source-V learning-rate pilot.
 
@@ -17,5 +17,9 @@ The seed-17 final bundle passed on 17 September 2026. All 15 model/fraction runs
 Seed-17 supported-class V mAP for M0-M4 was `0.3797/0.4047/0.3260/0.3481/0.3343` at 1%, `0.4869/0.5172/0.3847/0.4408/0.4230` at 10%, and `0.6128/0.6172/0.5130/0.5822/0.5942` at 100%. These are development results from one seed; model comparisons remain provisional until seeds 29 and 43 and the aggregate complete.
 
 The seed-29 final bundle also passed on 17 September 2026. Its 15 unique checkpoints and prediction files matched their hashes, all logits and four feature caches were finite with the required shapes, every run reached its exact step count with zero AMP overflows, and evaluation labels remained unloaded. The bundle consumed 1.0177 reported GPU-hours. Supported-class V mAP for M0-M4 was `0.3691/0.4121/0.3112/0.3306/0.3241` at 1%, `0.5175/0.5077/0.4212/0.4624/0.4667` at 10%, and `0.6110/0.6135/0.5035/0.6039/0.5991` at 100%. Comparisons remain provisional until seed 43 and aggregation complete.
+
+The seed-43 final bundle passed the same artifact, shape, finiteness, exact-step, overflow, and label-isolation checks on 17 September 2026. It consumed 1.1205 reported GPU-hours. Supported-class V mAP for M0-M4 was `0.3606/0.4020/0.2945/0.3225/0.2975` at 1%, `0.4948/0.5158/0.4056/0.4547/0.4394` at 10%, and `0.6095/0.6164/0.5119/0.6011/0.6028` at 100%.
+
+Across the three seeds, mean supported-class V mAP for M0-M4 is `0.3698/0.4063/0.3106/0.3337/0.3186` at 1%, `0.4997/0.5136/0.4039/0.4526/0.4430` at 10%, and `0.6111/0.6157/0.5094/0.5957/0.5987` at 100%. These remain source-V development results; the formal CPU aggregate must verify the complete 45-run artifact set before Week 6 begins.
 
 Expected Week 5 compute is 6-10 GPU-hours. Week 6 remains blocked until the CPU aggregate verifies all 45 anchor checkpoints.
