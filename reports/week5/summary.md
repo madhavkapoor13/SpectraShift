@@ -2,7 +2,7 @@
 
 Date: 17 September 2026  
 Stage: controlled downstream anchor experiments  
-Status: contracts, pilots, and all 45 final runs verified; CPU aggregate pending
+Status: complete; Week 6 approved
 
 The pipeline freezes deterministic nested D subsets for seeds 17, 29, and 43 at 1%, 5%, 10%, 25%, 50%, and 100%. Week 5 trains the 1%, 10%, and 100% anchors for M0-M4 after a bounded 15-run source-V learning-rate pilot.
 
@@ -20,6 +20,10 @@ The seed-29 final bundle also passed on 17 September 2026. Its 15 unique checkpo
 
 The seed-43 final bundle passed the same artifact, shape, finiteness, exact-step, overflow, and label-isolation checks on 17 September 2026. It consumed 1.1205 reported GPU-hours. Supported-class V mAP for M0-M4 was `0.3606/0.4020/0.2945/0.3225/0.2975` at 1%, `0.4948/0.5158/0.4056/0.4547/0.4394` at 10%, and `0.6095/0.6164/0.5119/0.6011/0.6028` at 100%.
 
-Across the three seeds, mean supported-class V mAP for M0-M4 is `0.3698/0.4063/0.3106/0.3337/0.3186` at 1%, `0.4997/0.5136/0.4039/0.4526/0.4430` at 10%, and `0.6111/0.6157/0.5094/0.5957/0.5987` at 100%. These remain source-V development results; the formal CPU aggregate must verify the complete 45-run artifact set before Week 6 begins.
+Across the three seeds, mean supported-class V mAP for M0-M4 is `0.3698/0.4063/0.3106/0.3337/0.3186` at 1%, `0.4997/0.5136/0.4039/0.4526/0.4430` at 10%, and `0.6111/0.6157/0.5094/0.5957/0.5987` at 100%. These remain source-V development results.
+
+The CPU aggregate verified all 45 expected model/fraction/seed combinations, 45 unique checkpoint hashes, exact optimizer-step counts, finite run gates, one shared frozen data contract, and no evaluation-label access. It reports `week5_complete: true` and `week6_approved: true`. Pilots, final training, and feature extraction consumed 3.4299 reported GPU-hours in total. The canonical aggregate summary SHA-256 is `79d268d0c8478c35602364de21d6a17e57102717e90bf9db31a551e937e5105c`.
+
+On source V, M1 leads M0 by `+0.0365`, `+0.0139`, and `+0.0046` mAP at 1%, 10%, and 100%. M2-M4 do not outperform M0 under full fine-tuning; M3 is consistently stronger than the RGB SSL model M2, and M4 exceeds M3 only at 100% by `0.0030` mAP. These are development findings rather than final transfer results. I, Finland, and Portugal remain sealed.
 
 Expected Week 5 compute is 6-10 GPU-hours. Week 6 remains blocked until the CPU aggregate verifies all 45 anchor checkpoints.

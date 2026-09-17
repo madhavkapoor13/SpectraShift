@@ -10,7 +10,7 @@ Weeks 1 through 4 are complete. The private Kaggle artifact `spectrashift-week2-
 
 Both Week 3 M3 VICReg pilots passed their stability and compute gates. The frozen D-to-V probe selected learning rate `1e-4` with validation macro average precision `0.4142477305`, compared with `0.3753572839` for `3e-4`. Week 4 completed all nine M2-M4 seed runs in 5.9730 measured GPU-hours. The aggregate verified nine unique encoders, exact optimizer-step counts, zero AMP overflows, and no evaluation-label access; Week 5 is approved.
 
-The Week 5 controlled downstream pipeline is implemented for M0-M4 at the 1%, 10%, and 100% anchor fractions. It freezes nested label manifests, performs bounded source-V learning-rate selection, supports exact resumable training, preserves V logits and verified best checkpoints, and keeps all final evaluation labels inaccessible.
+Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels across three seeds. The aggregate verified 45 unique checkpoints, exact step counts, one shared frozen data contract, and no evaluation-label access. On source V, ImageNet initialization produced the highest mean mAP at all three fractions; the SSL encoders did not beat the random baseline under full fine-tuning. Week 6 is approved, while I, Finland, and Portugal remain sealed.
 
 ## Setup and verification
 

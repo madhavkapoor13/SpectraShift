@@ -20,7 +20,7 @@
 | W2 real-data freeze | complete | Verified mirror hashes, 50,200 complete candidates, frozen manifest, T4 throughput, tiny-overfit pass |
 | W3 VICReg pilots | complete | Both M3 LR pilots stable; D-to-V probe selected `1e-4`; Week 4 approved |
 | W4 M2-M4 pretraining | complete | Nine complete encoder checkpoints and verified aggregate; Week 5 approved |
-| W5 downstream anchors | implemented; Kaggle runs pending | M0-M4 at 1%, 10%, and 100% across three seeds; 45 verified V-selected checkpoints |
+| W5 downstream anchors | complete | M0-M4 at 1%, 10%, and 100% across three seeds; 45 verified V-selected checkpoints; Week 6 approved |
 
 ## Change policy
 
@@ -35,5 +35,7 @@ Week 4 runs M2, M3, and M4 for seeds 17, 29, and 43 in three sequential seed job
 All nine Week 4 runs completed successfully in 5.9730 measured GPU-hours. The aggregate verified nine expected model-seed combinations, nine unique encoder hashes, exact optimizer-step counts, zero AMP overflows, passing stability/completion/compute gates, and no evaluation-label access. Week 5 is approved.
 
 Week 5 freezes nested D subsets for all six eventual label fractions, runs bounded 10%-label LR pilots for M0-M4 at seed 17, and then trains the 45 anchor combinations at 1%, 10%, and 100%. Checkpoint selection uses supported-class source-V mAP only. I, Finland, and Portugal remain sealed.
+
+All 45 Week 5 runs passed their exact-step, finiteness, checkpoint, prediction, feature-cache, and label-isolation gates. Three-seed mean source-V mAP for M0-M4 was `0.3698/0.4063/0.3106/0.3337/0.3186` at 1%, `0.4997/0.5136/0.4039/0.4526/0.4430` at 10%, and `0.6111/0.6157/0.5094/0.5957/0.5987` at 100%. The aggregate reports `week5_complete: true` and `week6_approved: true`.
 
 The final I, Finland, and Portugal labels remain sealed through model selection. Any change to the split after pixel inspection creates a new manifest version. A target country is never swapped because of model performance.
