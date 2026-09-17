@@ -16,10 +16,12 @@ from torch.utils.data import DataLoader
 from spectrashift.data.bands import BAND_ADAPTERS
 from spectrashift.data.dataset import SpectraShiftDataset
 from spectrashift.data.downstream import FRACTION_COUNTS, WEEK5_SEEDS
+from spectrashift.data.rgb import SpectraShiftImageNetRGBDataset
 from spectrashift.data.supervised import DownstreamDataset
 from spectrashift.eval.metrics import fit_global_validation_threshold, multilabel_metrics
 from spectrashift.models.resnet import (
     build_imagenet_resnet18_core10,
+    build_imagenet_resnet18_rgb,
     build_resnet18,
     build_resnet18_from_encoder_export,
 )
@@ -39,7 +41,10 @@ from .common import (
 )
 
 
-MODEL_ADAPTERS = {"M0": "core10", "M1": "core10", "M2": "rgb", "M3": "core10", "M4": "core10"}
+MODEL_ADAPTERS = {
+    "M0": "core10", "M1": "core10", "M1RGB": "rgb",
+    "M2": "rgb", "M3": "core10", "M4": "core10",
+}
 
 
 def model_state_sha256(model: torch.nn.Module) -> str:
@@ -59,11 +64,19 @@ def validate_downstream_config(config: dict[str, object]) -> None:
     seed = int(run["seed"])
     fraction = str(run["fraction_code"])
     if model_id not in MODEL_ADAPTERS or seed not in WEEK5_SEEDS or fraction not in FRACTION_COUNTS:
-        raise ValueError("Unexpected Week 5 run identity")
+        raise ValueError("Unexpected downstream run identity")
     if int(run["sample_count"]) != FRACTION_COUNTS[fraction]:
-        raise ValueError("Week 5 sample count differs from the frozen fraction")
+        raise ValueError("Downstream sample count differs from the frozen fraction")
     if data["adapter"] != MODEL_ADAPTERS[model_id]:
-        raise ValueError("Week 5 model uses the wrong band adapter")
+        raise ValueError("Downstream model uses the wrong band adapter")
+    preprocessing = data.get("preprocessing", {"mode": "u_standardization"})
+    expected_mode = "imagenet_rgb_percentile" if model_id == "M1RGB" else "u_standardization"
+    if preprocessing.get("mode") != expected_mode:
+        raise ValueError(f"{model_id} requires preprocessing mode {expected_mode}")
+    if model_id == "M1RGB":
+        contract_path = Path(preprocessing["contract_path"])
+        if file_sha256(contract_path) != preprocessing["contract_sha256"]:
+            raise ValueError("M1RGB preprocessing contract hash mismatch")
     if int(training["batch_size"]) != 64:
         raise ValueError("Week 5 physical batch must be 64")
     numeric = {
@@ -149,7 +162,7 @@ def _build_model(config: dict[str, object]) -> tuple[torch.nn.Module, dict[str, 
     if model_id == "M0":
         model = build_resnet18(10, outputs=19)
         record = {"type": "random", "sha256": object_sha256({"model_id": model_id, "seed": seed})}
-    elif model_id == "M1":
+    elif model_id in {"M1", "M1RGB"}:
         path = Path(initialization["path"])
         digest = file_sha256(path)
         if not digest.startswith(str(initialization["sha256_prefix"])):
@@ -157,8 +170,13 @@ def _build_model(config: dict[str, object]) -> tuple[torch.nn.Module, dict[str, 
         expected = initialization.get("sha256")
         if expected and digest != expected:
             raise ValueError("ImageNet checkpoint full hash differs from the contracts dataset")
-        model = build_imagenet_resnet18_core10(path, outputs=19)
-        record = {"type": "imagenet1k-v1-core10", "path": str(path), "sha256": digest}
+        if model_id == "M1":
+            model = build_imagenet_resnet18_core10(path, outputs=19)
+            initialization_type = "imagenet1k-v1-core10"
+        else:
+            model = build_imagenet_resnet18_rgb(path, outputs=19)
+            initialization_type = "imagenet1k-v1-rgb-unchanged-stem"
+        record = {"type": initialization_type, "path": str(path), "sha256": digest}
     elif model_id in {"M2", "M3", "M4"}:
         path = Path(initialization["path"])
         digest = file_sha256(path)
@@ -179,8 +197,15 @@ def _build_model(config: dict[str, object]) -> tuple[torch.nn.Module, dict[str, 
     return model, record
 
 
-def _make_base(config: dict[str, object], partition: str) -> SpectraShiftDataset:
+def _make_base(config: dict[str, object], partition: str):
     data = config["data"]
+    preprocessing = data.get("preprocessing", {"mode": "u_standardization"})
+    if preprocessing.get("mode") == "imagenet_rgb_percentile":
+        return SpectraShiftImageNetRGBDataset(
+            data["manifest_path"], data["staged_root"], data["normalization_path"],
+            preprocessing["contract_path"], partition, int(data.get("shard_size", 512)),
+            int(data.get("height", 120)), int(data.get("width", 120)),
+        )
     return SpectraShiftDataset(
         data["manifest_path"], data["staged_root"], data["normalization_path"],
         partition, data["adapter"], int(data.get("shard_size", 512)),
@@ -422,6 +447,7 @@ def train_downstream(
         "amp_overflow_skips": overflow_skips, "elapsed_seconds": elapsed,
         "initialization": initialization_record,
         "adapter": data["adapter"], "band_order": list(BAND_ADAPTERS[data["adapter"]]),
+        "preprocessing": data.get("preprocessing", {"mode": "u_standardization"}),
         "config_sha256": config_hash, "source_tree_sha256": source_tree_sha256(),
         "git_commit": git_commit(), "hardware": hardware_record(device),
         "data": {

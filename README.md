@@ -6,11 +6,13 @@ SpectraShift studies whether representations learned from Sentinel-2 imagery imp
 
 ## Current status
 
-Weeks 1 through 4 are complete. The private Kaggle artifact `spectrashift-week2-frozen` contains 50,200 verified patches, frozen split `BENv2-SpectraShift-v1`, and U-only normalization. All geographic, support, label-isolation, throughput, and tiny-overfit gates passed.
+Weeks 1 through 5 are complete. The private Kaggle artifact `spectrashift-week2-frozen` contains 50,200 verified patches, frozen split `BENv2-SpectraShift-v1`, and U-only normalization. All geographic, support, label-isolation, throughput, and tiny-overfit gates passed.
 
 Both Week 3 M3 VICReg pilots passed their stability and compute gates. The frozen D-to-V probe selected learning rate `1e-4` with validation macro average precision `0.4142477305`, compared with `0.3753572839` for `3e-4`. Week 4 completed all nine M2-M4 seed runs in 5.9730 measured GPU-hours. The aggregate verified nine unique encoders, exact optimizer-step counts, zero AMP overflows, and no evaluation-label access; Week 5 is approved.
 
-Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels across three seeds. The aggregate verified 45 unique checkpoints, exact step counts, one shared frozen data contract, and no evaluation-label access. On source V, ImageNet initialization produced the highest mean mAP at all three fractions; the SSL encoders did not beat the random baseline under full fine-tuning. Week 6 is approved, while I, Finland, and Portugal remain sealed.
+Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels across three seeds. The aggregate verified 45 unique checkpoints, exact step counts, one shared frozen data contract, and no evaluation-label access. On source V, ImageNet initialization produced the highest mean mAP at all three fractions; the SSL encoders did not beat the random baseline under full fine-tuning.
+
+Week 6 is implemented and ready for Kaggle execution. It fills the 5%, 25%, and 50% curve points and adds the three-seed M1RGB ImageNet control. The CPU preparation stage fits exact B04/B03/B02 percentile limits from valid U pixels only. I, Finland, and Portugal remain sealed.
 
 ## Setup and verification
 
@@ -55,6 +57,10 @@ Week 4 uses the nine immutable `week4_<model>_seed<seed>.yaml` configurations. O
 ## Week 5 downstream anchors
 
 Week 5 uses `configs/downstream/week5.yaml` and notebooks `07` through `10`. Run the contracts job, bounded LR pilots, three sequential seed bundles, and CPU aggregate in that order. See `reports/week5/kaggle_steps.md` for exact inputs and output dataset names.
+
+## Week 6 complete curves
+
+Week 6 uses `configs/downstream/week6.yaml` and notebooks `11` through `13`. Run the RGB-contract job, the three sequential 16-run seed bundles, and the CPU aggregate. See `reports/week6/kaggle_steps.md` for exact inputs, gates, recovery steps, and private output names.
 
 ## Research controls
 

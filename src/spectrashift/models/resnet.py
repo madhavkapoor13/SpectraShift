@@ -45,6 +45,23 @@ def build_imagenet_resnet18_core10(weights_path: str | Path, outputs: int = 19):
     return model
 
 
+def build_imagenet_resnet18_rgb(weights_path: str | Path, outputs: int = 19):
+    """Build M1RGB with the original three-channel ImageNet stem unchanged."""
+    from torchvision.models import resnet18
+
+    state = torch.load(weights_path, map_location="cpu", weights_only=True)
+    rgb = state.get("conv1.weight") if isinstance(state, dict) else None
+    if not isinstance(rgb, torch.Tensor) or tuple(rgb.shape) != (64, 3, 7, 7):
+        raise ValueError("ImageNet checkpoint lacks the standard ResNet-18 RGB stem")
+    state = {key: value for key, value in state.items() if not key.startswith("fc.")}
+    model = resnet18(weights=None)
+    model.fc = torch.nn.Linear(model.fc.in_features, outputs)
+    missing, unexpected = model.load_state_dict(state, strict=False)
+    if set(missing) != {"fc.weight", "fc.bias"} or unexpected:
+        raise ValueError(f"Invalid ImageNet RGB initialization: missing={missing}, unexpected={unexpected}")
+    return model
+
+
 def build_resnet18_from_encoder_export(
     export_path: str | Path,
     expected_model_id: str,
