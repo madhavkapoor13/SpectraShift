@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import subprocess
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
@@ -36,6 +37,13 @@ def build_bundle(root: str | Path, output: str | Path) -> tuple[int, str]:
             info.compress_type = ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             archive.writestr(info, path.read_bytes(), compress_type=ZIP_DEFLATED, compresslevel=9)
+        commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=root, text=True, stderr=subprocess.DEVNULL
+        ).strip()
+        info = ZipInfo("SOURCE_COMMIT", date_time=(1980, 1, 1, 0, 0, 0))
+        info.compress_type = ZIP_DEFLATED
+        info.external_attr = 0o100644 << 16
+        archive.writestr(info, (commit + "\n").encode(), compress_type=ZIP_DEFLATED, compresslevel=9)
     temporary.replace(output)
     payload = output.read_bytes()
     return len(payload), hashlib.sha256(payload).hexdigest()

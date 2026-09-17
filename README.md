@@ -10,6 +10,8 @@ Weeks 1 through 4 are complete. The private Kaggle artifact `spectrashift-week2-
 
 Both Week 3 M3 VICReg pilots passed their stability and compute gates. The frozen D-to-V probe selected learning rate `1e-4` with validation macro average precision `0.4142477305`, compared with `0.3753572839` for `3e-4`. Week 4 completed all nine M2-M4 seed runs in 5.9730 measured GPU-hours. The aggregate verified nine unique encoders, exact optimizer-step counts, zero AMP overflows, and no evaluation-label access; Week 5 is approved.
 
+The Week 5 controlled downstream pipeline is implemented for M0-M4 at the 1%, 10%, and 100% anchor fractions. It freezes nested label manifests, performs bounded source-V learning-rate selection, supports exact resumable training, preserves V logits and verified best checkpoints, and keeps all final evaluation labels inaccessible.
+
 ## Setup and verification
 
 ```bash
@@ -49,6 +51,10 @@ The two fixed pilot configurations are `configs/ssl/week3_m3_lr1e4.yaml` and `co
 ## Week 4 pretraining
 
 Week 4 uses the nine immutable `week4_<model>_seed<seed>.yaml` configurations. On Kaggle, run `05a`, `05b`, and `05c` sequentially, preserve each output as a private seed dataset, then run `06_week4_aggregate.ipynb`. See `reports/week4/kaggle_steps.md` for the exact workflow.
+
+## Week 5 downstream anchors
+
+Week 5 uses `configs/downstream/week5.yaml` and notebooks `07` through `10`. Run the contracts job, bounded LR pilots, three sequential seed bundles, and CPU aggregate in that order. See `reports/week5/kaggle_steps.md` for exact inputs and output dataset names.
 
 ## Research controls
 

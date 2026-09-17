@@ -17,6 +17,7 @@ reports/week1/generated/
 reports/week2/generated/
 reports/week3/generated/
 reports/week4/generated/
+reports/week5/generated/
 outputs/
 runs.jsonl
 *.ckpt

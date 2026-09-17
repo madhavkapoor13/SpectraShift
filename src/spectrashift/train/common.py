@@ -47,6 +47,11 @@ def git_commit(root: str | Path = ".") -> str:
             ["git", "rev-parse", "HEAD"], cwd=root, text=True, stderr=subprocess.DEVNULL
         ).strip()
     except (OSError, subprocess.CalledProcessError):
+        provenance = Path(root) / "SOURCE_COMMIT"
+        if provenance.is_file():
+            value = provenance.read_text().strip()
+            if len(value) == 40 and all(character in "0123456789abcdef" for character in value.lower()):
+                return value
         return "uncommitted"
 
 

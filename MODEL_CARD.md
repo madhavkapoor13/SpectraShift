@@ -6,6 +6,8 @@ The controlled M0-M4 models use torchvision ResNet-18. RGB, core-10, and all-12 
 
 M2 uses RGB VICReg, M3 uses ten-band VICReg, and M4 applies asymmetric spectral-group dropout with probability 0.25 during pretraining only. Week 3 pilots M3 at learning rates `1e-4` and `3e-4`; M2-M4 retain random initialization and matched patch/crop seeds for the controlled Week 4 runs.
 
+Week 5 fine-tunes M0-M4 with fresh 19-output heads at the 1%, 10%, and 100% anchor fractions. M0 is random-init core10, M1 converts ImageNet RGB kernels into the declared ten-band stem, and M2-M4 load only the matching-seed Week 4 encoder state. Every run resets its head, optimizer, scheduler, scaler, and RNG; no larger label fraction is used to initialize a smaller one.
+
 ## Generic self-supervised baseline
 
 Primary: Meta DINOv3 `dinov3_vits16`, ViT-S/16 distilled on LVD-1689M (21M parameters). Weight access requires the applicant to accept Meta's license and receive a private download URL. The repository cannot request or accept that license on the applicant's behalf.

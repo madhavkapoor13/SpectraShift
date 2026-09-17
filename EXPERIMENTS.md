@@ -20,6 +20,7 @@
 | W2 real-data freeze | complete | Verified mirror hashes, 50,200 complete candidates, frozen manifest, T4 throughput, tiny-overfit pass |
 | W3 VICReg pilots | complete | Both M3 LR pilots stable; D-to-V probe selected `1e-4`; Week 4 approved |
 | W4 M2-M4 pretraining | complete | Nine complete encoder checkpoints and verified aggregate; Week 5 approved |
+| W5 downstream anchors | implemented; Kaggle runs pending | M0-M4 at 1%, 10%, and 100% across three seeds; 45 verified V-selected checkpoints |
 
 ## Change policy
 
@@ -32,5 +33,7 @@ Both pilots passed the stability and compute gates. Validation macro average pre
 Week 4 runs M2, M3, and M4 for seeds 17, 29, and 43 in three sequential seed jobs. Every run uses 60 epochs, batch 64, five warmup epochs, and exactly 18,720 optimizer steps. Recovery checkpoints are written every ten epochs; after success only the epoch-60 state and verified encoder export remain.
 
 All nine Week 4 runs completed successfully in 5.9730 measured GPU-hours. The aggregate verified nine expected model-seed combinations, nine unique encoder hashes, exact optimizer-step counts, zero AMP overflows, passing stability/completion/compute gates, and no evaluation-label access. Week 5 is approved.
+
+Week 5 freezes nested D subsets for all six eventual label fractions, runs bounded 10%-label LR pilots for M0-M4 at seed 17, and then trains the 45 anchor combinations at 1%, 10%, and 100%. Checkpoint selection uses supported-class source-V mAP only. I, Finland, and Portugal remain sealed.
 
 The final I, Finland, and Portugal labels remain sealed through model selection. Any change to the split after pixel inspection creates a new manifest version. A target country is never swapped because of model performance.
