@@ -32,7 +32,9 @@ projects = [p.parent for p in INPUT.rglob('pyproject.toml') if (p.parent / 'src/
 if not projects:
     bundles = sorted(INPUT.rglob('spectrashift-kaggle-source.zip'))
     assert len(bundles) == 1, f'Expected one Week 5 source bundle, found {bundles}'
-    source_work = Path('/kaggle/working/week5-source')
+    source_work = Path('/tmp/spectrashift-week5-source')
+    if source_work.exists():
+        shutil.rmtree(source_work)
     shutil.unpack_archive(str(bundles[0]), str(source_work))
     projects = [source_work]
 assert projects, 'No Week 5 source tree found'
