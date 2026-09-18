@@ -1,0 +1,81 @@
+stage: week9
+
+paths:
+  manifest_path: data/staged/manifest-v1/partitions.parquet
+  staged_root: data/staged
+  normalization_path: data/staged/manifest-v1/normalization.json
+  week5_contracts_path: outputs/week5/contracts/week5_contracts_summary.json
+  subset_manifest_path: outputs/week5/contracts/downstream_subsets.parquet
+  week7_summary_path: reports/week7/generated/week7_run_summary.json
+  checkpoint_ledger_path: reports/week7/generated/week8_checkpoint_ledger.csv
+  week7_probe_summary_path: outputs/week7/probes/week7_probe_summary.json
+  week8_summary_path: reports/week8/generated/week8_run_summary.json
+  week8_output_dir: reports/week8/generated
+  evaluation_labels_path: data/sealed/week8/evaluation_labels.parquet
+  evaluation_contract_path: data/sealed/week8/evaluation_contract.json
+  support_contract_path: data/sealed/week8/support_contract.json
+  contracts_output_dir: outputs/week9/contracts
+
+frozen:
+  pre_analysis_commit: abc0e09
+  pre_analysis_tag: week8-complete
+  week8_summary_sha256: e1b8a4af781190a6efffb8d941cc4ff3da3efc3bb43dcfc51f505799680af28f
+  checkpoint_ledger_sha256: fbf0a98618da16efad73d66f11f81af4a784d17dfbf7b59f52f023d25a5282f3
+  evaluation_contract_sha256: 13aad619d46955a6ab7bbd60ec0d55c01ba08b859c32d72e7ae48bf6a4a45b2e
+  support_contract_sha256: 787b257d12d8677d287df832816f801274d615eb0e677af0597162a7061b12d3
+  manifest_contract_sha256: 0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a
+  normalization_sha256: 3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05
+
+sampling:
+  seed: 1729
+  cka_partition: V
+  cka_patch_count: 1000
+  query_counts:
+    I: 50
+    T-FI: 25
+    T-PT: 25
+  nearest_neighbors: 5
+
+probes:
+  models: [M1, M2, M3, M4, M5, M6]
+  new_models: [M1, M2, M3, M4]
+  seeds: [17, 29, 43]
+  fractions: ['01', '05', '10', '25', '50', '100']
+  linear_epochs: 100
+  linear_batch_size: 256
+  linear_learning_rate: 0.01
+  l2_grid: [0.0, 0.0001, 0.01]
+  knn_fraction: '10'
+  knn_k: [5, 20, 50]
+  knn_temperature: 0.07
+
+diagnostics:
+  models: [M3, M4]
+  seeds: [17, 29, 43]
+  fraction: '10'
+  partitions: [I, T-FI, T-PT]
+  conditions: [clean, missing_b08, missing_red_edge, missing_swir, gain_0p9, gain_1p1]
+  band_groups:
+    missing_b08: [B08]
+    missing_red_edge: [B05, B06, B07, B8A]
+    missing_swir: [B11, B12]
+  gains:
+    gain_0p9: 0.9
+    gain_1p1: 1.1
+  batch_size: 256
+  num_workers: 2
+  shard_size: 512
+  height: 120
+  width: 120
+  require_cuda: true
+  effective_rank_epsilon: 1.0e-12
+  distance_bins: source-v-quartiles
+  label_count_bins: ['1', '2', '3', '4+']
+
+uncertainty:
+  bootstrap_seed: 1729
+  bootstrap_replicates: 1000
+  primary_group: mgrs_group
+  sensitivity_group: block_12km
+  interval_percentiles: [2.5, 97.5]
+  p_values: false

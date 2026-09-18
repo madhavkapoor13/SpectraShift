@@ -18,6 +18,8 @@ Week 7 is complete. Its aggregate verified 18 foundation checkpoints, two featur
 
 Week 8 is complete and Week 9 is approved. The final aggregate verified all 111 frozen checkpoints and 333 domain prediction artifacts across I, Finland, and Portugal. OlmoEarth ranked first at 1%, 10%, and 100% labels in every domain; controlled multispectral SSL outperformed RGB SSL but did not exceed the random multispectral baseline across the full label-efficiency curve. No retuning or checkpoint selection occurred after label access.
 
+Week 9 is implemented and ready for private Kaggle execution. It completes the 108-state linear-probe and 18-state k-NN matrices, then evaluates the six frozen 10% M3/M4 checkpoints with CKA, effective rank, five spectral perturbations, fixed nearest-neighbour queries, and predeclared error slices. No encoder training or post-Week-8 model selection is permitted.
+
 ## Setup and verification
 
 ```bash
@@ -72,7 +74,11 @@ Week 7 uses `configs/downstream/week7.yaml` and notebooks `14` through `18`. The
 
 ## Week 8 frozen evaluation
 
-Week 8 uses `configs/eval/week8.yaml` and notebooks `19` through `21`. The CPU preparation job seals the exact final evaluation IDs; three sequential GPU notebooks generate label-free predictions for all registered checkpoints; and the CPU aggregate computes domain metrics, equal-country OOD results, AULC, rankings, and paired geographic uncertainty. Week 9 is not implemented.
+Week 8 uses `configs/eval/week8.yaml` and notebooks `19` through `21`. The CPU preparation job seals the exact final evaluation IDs; three sequential GPU notebooks generate label-free predictions for all registered checkpoints; and the CPU aggregate computes domain metrics, equal-country OOD results, AULC, rankings, and paired geographic uncertainty.
+
+## Week 9 representation and robustness analysis
+
+Week 9 uses `configs/analysis/week9.yaml` and notebooks `22` through `25`. The CPU preparation job freezes all query and analysis contracts, the probe notebook completes M1-M6 source-V representation evidence, three sequential GPU notebooks run M3/M4 diagnostics, and the CPU aggregate produces hypothesis-linked tables and figures. See `reports/week9/kaggle_steps.md` for exact private inputs and completion gates.
 
 ## Research controls
 
