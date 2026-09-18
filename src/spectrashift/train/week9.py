@@ -634,9 +634,10 @@ def _align_features(features: np.ndarray, ids: np.ndarray, wanted: Sequence[str]
 
 
 def _forbidden_locations(query_frame: pd.DataFrame, bank_frame: pd.DataFrame) -> list[np.ndarray]:
+    bank_locations = bank_frame["location_key"].astype(str).to_numpy()
     locations: dict[str, np.ndarray] = {
-        str(name): indices.to_numpy(dtype=np.int64)
-        for name, indices in bank_frame.groupby("location_key", sort=False).groups.items()
+        str(name): np.flatnonzero(bank_locations == str(name)).astype(np.int64)
+        for name in pd.unique(bank_locations)
     }
     return [locations.get(str(value), np.empty(0, dtype=np.int64)) for value in query_frame["location_key"]]
 

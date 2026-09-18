@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pytest
 import yaml
 
@@ -17,6 +18,7 @@ from spectrashift.train.week9 import (
     centered_linear_cka,
     covariance_effective_rank,
     deterministic_patch_ids,
+    _forbidden_locations,
 )
 
 
@@ -76,6 +78,20 @@ def test_effective_rank_is_hand_checkable_and_detects_collapse() -> None:
     collapsed = np.tile(np.arange(10, dtype=np.float64)[:, None], (1, 5))
     assert covariance_effective_rank(collapsed) == pytest.approx(1.0)
     assert covariance_effective_rank(np.ones((10, 5))) == 0.0
+
+
+def test_duplicate_location_filter_returns_bank_positions_with_patch_id_index() -> None:
+    bank = pd.DataFrame(
+        {"location_key": ["tile-a", "tile-b", "tile-a"]},
+        index=["S2A_patch_74_09", "S2B_patch_10_11", "S2C_patch_12_13"],
+    )
+    query = pd.DataFrame(
+        {"location_key": ["tile-a", "tile-c"]},
+        index=["query-one", "query-two"],
+    )
+    forbidden = _forbidden_locations(query, bank)
+    assert np.array_equal(forbidden[0], np.asarray([0, 2]))
+    assert forbidden[1].dtype == np.int64 and len(forbidden[1]) == 0
 
 
 def _synthetic_probe_summary() -> dict[str, object]:
