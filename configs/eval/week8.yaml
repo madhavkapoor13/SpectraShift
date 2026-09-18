@@ -1,0 +1,54 @@
+stage: week8
+
+paths:
+  manifest_path: data/staged/manifest-v1/partitions.parquet
+  staged_root: data/staged
+  normalization_path: data/staged/manifest-v1/normalization.json
+  freeze_summary_path: data/staged/reports/freeze_summary.json
+  week5_contracts_path: outputs/week5/contracts/week5_contracts_summary.json
+  week7_summary_path: reports/week7/generated/week7_run_summary.json
+  checkpoint_ledger_path: reports/week7/generated/week8_checkpoint_ledger.csv
+  candidate_labels_path: data/sealed/evaluation_candidate_labels.parquet
+  evaluation_labels_path: data/sealed/week8/evaluation_labels.parquet
+  evaluation_contract_path: data/sealed/week8/evaluation_contract.json
+  support_contract_path: data/sealed/week8/support_contract.json
+  rgb_contract_path: outputs/week6/contracts/rgb_percentile_contract.json
+  week7_contracts_path: outputs/week7/contracts/week7_contracts_summary.json
+  olmo_contract_path: outputs/week7/contracts/olmoearth_input_contract.json
+  output_dir: data/sealed/week8
+
+frozen:
+  pre_label_commit: e9af130134d7b323a5f4315338d462d01cb136e7
+  pre_label_tag: week7-complete
+  week7_summary_sha256: 7c3c33fc6bb254d58565fa5cbe98bb799f2b6ff4630e91a9a9f26659ab2f273d
+  checkpoint_ledger_sha256: fbf0a98618da16efad73d66f11f81af4a784d17dfbf7b59f52f023d25a5282f3
+  manifest_contract_sha256: 0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a
+  normalization_sha256: 3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05
+  expected_checkpoint_count: 111
+  expected_runs_per_seed: 37
+  expected_partition_counts:
+    I: 3000
+    T-FI: 4000
+    T-PT: 4000
+
+uncertainty:
+  bootstrap_seed: 1729
+  bootstrap_replicates: 1000
+  primary_group: mgrs_group
+  sensitivity_group: block_12km
+  interval_percentiles: [2.5, 97.5]
+  p_values: false
+
+evaluation:
+  controlled_batch_size: 256
+  foundation_batch_size: 64
+  num_workers: 2
+  require_cuda: true
+  shard_size: 512
+  height: 120
+  width: 120
+  threshold_sources: [0.5, source-v-global]
+  calibration_bins: 15
+  save_targets_with_predictions: false
+  allow_parameter_updates: false
+  allow_model_selection: false

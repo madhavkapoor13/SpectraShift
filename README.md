@@ -6,7 +6,7 @@ SpectraShift studies whether representations learned from Sentinel-2 imagery imp
 
 ## Current status
 
-Weeks 1 through 6 are complete. The private Kaggle artifact `spectrashift-week2-frozen` contains 50,200 verified patches, frozen split `BENv2-SpectraShift-v1`, and U-only normalization. All geographic, support, label-isolation, throughput, and tiny-overfit gates passed.
+Weeks 1 through 7 are complete. The private Kaggle artifact `spectrashift-week2-frozen` contains 50,200 verified patches, frozen split `BENv2-SpectraShift-v1`, and U-only normalization. All geographic, support, label-isolation, throughput, and tiny-overfit gates passed.
 
 Both Week 3 M3 VICReg pilots passed their stability and compute gates. The frozen D-to-V probe selected learning rate `1e-4` with validation macro average precision `0.4142477305`, compared with `0.3753572839` for `3e-4`. Week 4 completed all nine M2-M4 seed runs in 5.9730 measured GPU-hours. The aggregate verified nine unique encoders, exact optimizer-step counts, zero AMP overflows, and no evaluation-label access; Week 5 is approved.
 
@@ -14,7 +14,9 @@ Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels
 
 Week 6 is complete. All 48 new runs passed, producing the full 90-state M0-M4 controlled matrix plus three M1RGB controls. The aggregate verified exact step counts, artifacts, frozen contracts, and label isolation, and approved Week 7. Across the six-point curves, M3 improves substantially over the RGB SSL model M2 but remains below the random multispectral baseline M0; spectral dropout M4 does not improve over M3 on average. I, Finland, and Portugal remain sealed.
 
-Week 7 is implemented and awaiting Kaggle execution. It adds the explicitly named DINOv2 ViT-S/14 fallback and OlmoEarth v1.1 Tiny, six bounded LR pilots, 18 full fine-tuning anchors, two frozen feature caches, 36 linear probes, and six k-NN probes. See `reports/week7/kaggle_steps.md` for the exact private datasets and launch order.
+Week 7 is complete. Its aggregate verified 18 foundation checkpoints, two feature caches, 36 linear probes, six k-NN probes, and froze the 111-state checkpoint ledger for final evaluation.
+
+Week 8 is implemented and awaiting private Kaggle execution. It opens the sealed labels only after verifying the exact Week 7 summary and ledger, evaluates all 111 frozen states on I, Finland, and Portugal, and produces paired geographic bootstrap intervals without any retuning or checkpoint selection. See `reports/week8/kaggle_steps.md` for the exact launch order.
 
 ## Setup and verification
 
@@ -67,6 +69,10 @@ Week 6 uses `configs/downstream/week6.yaml` and notebooks `11` through `13`. Run
 ## Week 7 foundation baselines
 
 Week 7 uses `configs/downstream/week7.yaml` and notebooks `14` through `18`. The CPU preparation job pins the official public model artifacts, the GPU jobs run pilots, foundation anchors, and frozen probes, and the final CPU aggregate freezes the Week 8 checkpoint ledger. DINOv2 is always identified explicitly and must never be reported as DINOv3.
+
+## Week 8 frozen evaluation
+
+Week 8 uses `configs/eval/week8.yaml` and notebooks `19` through `21`. The CPU preparation job seals the exact final evaluation IDs; three sequential GPU notebooks generate label-free predictions for all registered checkpoints; and the CPU aggregate computes domain metrics, equal-country OOD results, AULC, rankings, and paired geographic uncertainty. Week 9 is not implemented.
 
 ## Research controls
 

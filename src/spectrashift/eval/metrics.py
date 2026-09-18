@@ -20,7 +20,7 @@ def average_precision(targets: np.ndarray, scores: np.ndarray) -> float:
     targets = np.asarray(targets, dtype=bool)
     scores = np.asarray(scores, dtype=np.float64)
     positives = int(targets.sum())
-    if positives == 0:
+    if positives == 0 or positives == len(targets):
         return float("nan")
     order = np.argsort(-scores, kind="stable")
     ranked = targets[order]
