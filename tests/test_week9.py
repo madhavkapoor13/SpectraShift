@@ -19,6 +19,7 @@ from spectrashift.train.week9 import (
     covariance_effective_rank,
     deterministic_patch_ids,
     _forbidden_locations,
+    _geographic_distance_km,
 )
 
 
@@ -92,6 +93,15 @@ def test_duplicate_location_filter_returns_bank_positions_with_patch_id_index() 
     forbidden = _forbidden_locations(query, bank)
     assert np.array_equal(forbidden[0], np.asarray([0, 2]))
     assert forbidden[1].dtype == np.int64 and len(forbidden[1]) == 0
+
+
+def test_geographic_distance_needs_no_optional_mgrs_dependency() -> None:
+    class Row:
+        def __init__(self, tile: str, h: int, v: int) -> None:
+            self.mgrs_tile, self.h_order, self.v_order = tile, h, v
+
+    assert _geographic_distance_km(Row("T29UPU", 10, 20), Row("T29UPU", 13, 24)) == pytest.approx(6.0)
+    assert np.isnan(_geographic_distance_km(Row("T29UPU", 10, 20), Row("T30TYN", 13, 24)))
 
 
 def _synthetic_probe_summary() -> dict[str, object]:

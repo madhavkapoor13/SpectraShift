@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import gc
-import functools
 import hashlib
 import json
 import math
@@ -565,23 +564,15 @@ def _label_jaccard(left: Sequence[str], right: Sequence[str]) -> float:
     return float(len(first & second) / len(union)) if union else 1.0
 
 
-@functools.lru_cache(maxsize=None)
-def _mgrs_tile_center(tile: str) -> tuple[float, float]:
-    import mgrs
-
-    latitude, longitude = mgrs.MGRS().toLatLon(str(tile).removeprefix("T") + "5000050000")
-    return float(latitude), float(longitude)
-
-
 def _geographic_distance_km(left, right) -> float:
     if str(left.mgrs_tile) == str(right.mgrs_tile):
         return float(1.2 * math.hypot(
             int(left.h_order) - int(right.h_order), int(left.v_order) - int(right.v_order)
         ))
-    lat1, lon1 = map(math.radians, _mgrs_tile_center(str(left.mgrs_tile)))
-    lat2, lon2 = map(math.radians, _mgrs_tile_center(str(right.mgrs_tile)))
-    value = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
-    return float(6371.0088 * 2 * math.asin(min(1.0, math.sqrt(value))))
+    # h_order/v_order are directly comparable only inside one MGRS tile. Keep
+    # cross-tile distance unavailable and retain the explicit tile/block flags
+    # instead of introducing an optional geodesy dependency in offline Kaggle.
+    return float("nan")
 
 
 def _load_week8_clean(roots: Sequence[str | Path], seed: int, run_id: str) -> tuple[dict[str, object], Path]:
@@ -820,6 +811,10 @@ def run_week9_diagnostics(
                     "same_mgrs_tile": str(query_row.mgrs_tile) == str(neighbor_row.mgrs_tile),
                     "same_12km_block": str(query_row.get("block_12km", "")) == str(neighbor_row.get("block_12km", "x")),
                     "derived_geographic_distance_km": _geographic_distance_km(query_row, neighbor_row),
+                    "geographic_distance_scope": (
+                        "within-mgrs-tile" if str(query_row.mgrs_tile) == str(neighbor_row.mgrs_tile)
+                        else "cross-tile-unavailable"
+                    ),
                 })
         neighbor_frames.append(pd.DataFrame(nearest_rows))
         sensitivity_frames.extend(cosine_records)
