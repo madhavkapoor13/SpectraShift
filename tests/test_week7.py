@@ -25,6 +25,7 @@ from spectrashift.train.week7 import (
     PILOT_MULTIPLIERS,
     PROBE_FRACTIONS,
     _select_pilot,
+    run_knn_probe,
     resolved_foundation_config,
 )
 
@@ -214,6 +215,55 @@ def test_week7_registry_counts_and_pinned_olmo_hashes() -> None:
     assert len(FOUNDATION_MODELS) * 3 == 6
     assert OLMO_CONFIG_SHA256.startswith("01dcb438")
     assert OLMO_WEIGHTS_SHA256.startswith("2a3fe813")
+
+
+def test_week7_knn_clips_float32_probabilities_before_metrics(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    cache = tmp_path / "features.npz"
+    d_ids = np.asarray([f"d{index}" for index in range(50)])
+    v_ids = np.asarray(["v0"])
+    np.savez_compressed(
+        cache,
+        D_features=np.ones((50, 2), dtype=np.float32),
+        V_features=np.ones((1, 2), dtype=np.float32),
+        D_patch_ids=d_ids,
+        V_patch_ids=v_ids,
+    )
+    manifest = pd.DataFrame([
+        *(
+            {"patch_id": patch_id, "partition": "D", "labels": ["Urban fabric"]}
+            for patch_id in d_ids
+        ),
+        {"patch_id": "v0", "partition": "V", "labels": ["Urban fabric"]},
+    ])
+    manifest_path = tmp_path / "manifest.parquet"
+    manifest.to_parquet(manifest_path, index=False)
+    subset_path = tmp_path / "subsets.parquet"
+    pd.DataFrame({
+        "patch_id": d_ids,
+        "downstream_seed": np.full(50, 17),
+        "subset_rank": np.arange(50),
+    }).to_parquet(subset_path, index=False)
+    contract_path = tmp_path / "contract.json"
+    contract_path.write_text(json.dumps({
+        "supported_class_indices": list(range(19)),
+        "subset_manifest_sha256": "subset",
+    }))
+
+    observed = []
+
+    def bounded_metrics(targets, scores, supported_indices):
+        observed.append(scores.copy())
+        assert np.all(scores >= 0.0) and np.all(scores <= 1.0)
+        return {"macro_average_precision": float(scores.mean())}
+
+    monkeypatch.setattr("spectrashift.train.week7.multilabel_metrics", bounded_metrics)
+    result = run_knn_probe(
+        "M5", 17, cache, manifest_path, subset_path, contract_path, 0.07,
+    )
+    assert result["finite_gate"] is True
+    assert len(observed) == 3
 
 
 def test_week7_notebooks_are_small_output_free_and_label_isolated() -> None:

@@ -697,6 +697,11 @@ def run_knn_probe(
         weights = np.exp(shifted)
         weights /= weights.sum(axis=1, keepdims=True)
         scores = (train_targets[neighbor_indices] * weights[..., None]).sum(axis=1)
+        # A convex combination of binary targets is a probability, but float32
+        # accumulation can produce values a few ULPs outside [0, 1]. Keep the
+        # numerical representation inside the probability contract consumed by
+        # calibration metrics.
+        scores = np.clip(scores, 0.0, 1.0)
         metrics = multilabel_metrics(v_targets, scores, supported_indices=contract["supported_class_indices"])
         candidate_scores[k] = float(metrics["macro_average_precision"])
         candidate_predictions[k] = scores
