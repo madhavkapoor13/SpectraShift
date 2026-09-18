@@ -1,0 +1,78 @@
+stage: week7
+
+data:
+  manifest_path: data/staged/manifest-v1/partitions.parquet
+  staged_root: data/staged
+  normalization_path: data/staged/manifest-v1/normalization.json
+  freeze_summary_path: data/staged/reports/freeze_summary.json
+  manifest_contract_sha256: 0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a
+  normalization_sha256: 3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05
+  shard_size: 512
+  height: 120
+  width: 120
+
+contracts:
+  output_dir: outputs/week7/contracts
+  week5_contracts_summary_path: outputs/week5/contracts/week5_contracts_summary.json
+  week6_summary_path: reports/week6/generated/week6_run_summary.json
+  week6_summary_sha256: 047d1a05470a55a16d156bbb60f35406cf5851e74482e98242169a4342976bd9
+  rgb_contract_path: outputs/week6/contracts/rgb_percentile_contract.json
+
+assets:
+  dinov2_source_revision: 7764ea0f912e53c92e82eb78a2a1631e92725fc8
+  dinov2_source_url: https://github.com/facebookresearch/dinov2/archive/7764ea0f912e53c92e82eb78a2a1631e92725fc8.zip
+  dinov2_source_archive_sha256: 04276715cddb29d45d05bff3a6fc132224dc27749b279ac98ad2ce4620e20d48
+  dinov2_weights_url: https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth
+  dinov2_weights_sha256: b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9
+  olmoearth_model_revision: 74fab5714f763d6b94f8b1536bdd3300d77f45e8
+  olmoearth_config_url: https://huggingface.co/allenai/OlmoEarth-v1_1-Tiny/resolve/74fab5714f763d6b94f8b1536bdd3300d77f45e8/config.json
+  olmoearth_weights_url: https://huggingface.co/allenai/OlmoEarth-v1_1-Tiny/resolve/74fab5714f763d6b94f8b1536bdd3300d77f45e8/weights.pth
+  olmoearth_minimal_revision: 28eb18a852be74871a357fbcca7676f790a55c66
+  olmoearth_minimal_url: https://github.com/allenai/olmoearth_pretrain_minimal/archive/28eb18a852be74871a357fbcca7676f790a55c66.zip
+  olmoearth_minimal_archive_sha256: e9a875819466cd8f5b0d5693ec3fbd141fbc3cc26230e5b859542b93e4029efe
+
+matrix:
+  models: [M5, M6]
+  seeds: [17, 29, 43]
+  full_fraction_codes: ['01', '10', '100']
+  probe_fraction_codes: ['01', '05', '10', '25', '50', '100']
+  expected_full_runs: 18
+  expected_linear_probes: 36
+  expected_knn_runs: 6
+
+pilots:
+  seed: 17
+  fraction_code: '10'
+  epochs: 10
+  multipliers: [0.3, 1.0, 3.0]
+  tie_tolerance: 0.005
+  undertraining_reference_epoch: 8
+
+training:
+  preferred_batch_size: 32
+  fallback_batch_size: 16
+  base_epochs: 20
+  minimum_optimizer_steps: 300
+  encoder_learning_rate: 0.00001
+  head_learning_rate: 0.001
+  weight_decay: 0.05
+  warmup_fraction: 0.05
+  minimum_encoder_learning_rate: 0.0000001
+  gradient_clip: 1.0
+  amp: true
+  amp_initial_scale: 128.0
+  amp_growth_interval: 1000000
+  fail_on_amp_overflow: true
+  num_workers: 2
+  require_cuda: true
+  validation_batch_size: 64
+  log_every_steps: 50
+
+probes:
+  feature_batch_size: 64
+  linear_epochs: 100
+  linear_batch_size: 256
+  linear_learning_rate: 0.01
+  l2_grid: [0.0, 0.0001, 0.01]
+  knn_k_grid: [5, 20, 50]
+  knn_temperature: 0.07

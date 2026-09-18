@@ -20,6 +20,21 @@ def file_sha256(path: str | Path) -> str:
     return digest.hexdigest()
 
 
+def directory_sha256(path: str | Path) -> str:
+    """Hash a directory independently of mtimes and host-specific metadata."""
+    root = Path(path)
+    digest = hashlib.sha256()
+    for candidate in sorted(value for value in root.rglob("*") if value.is_file()):
+        relative = candidate.relative_to(root).as_posix()
+        if relative.startswith(".git/") or "__pycache__" in candidate.parts:
+            continue
+        digest.update(relative.encode())
+        digest.update(b"\0")
+        digest.update(candidate.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def object_sha256(value: object) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, default=str).encode()).hexdigest()
 

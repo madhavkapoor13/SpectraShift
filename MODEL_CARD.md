@@ -10,9 +10,7 @@ Week 5 fine-tunes M0-M4 with fresh 19-output heads at the 1%, 10%, and 100% anch
 
 ## Generic self-supervised baseline
 
-Primary: Meta DINOv3 `dinov3_vits16`, ViT-S/16 distilled on LVD-1689M (21M parameters). Weight access requires the applicant to accept Meta's license and receive a private download URL. The repository cannot request or accept that license on the applicant's behalf.
-
-Declared fallback if access is not obtained before baseline integration: official DINOv2 ViT-S/14. The fallback uses 126-pixel RGB input so the image size is divisible by 14. Any result must identify DINOv2 explicitly and must not be labeled DINOv3.
+Week 7 selects the declared public fallback: official DINOv2 `dinov2_vits14`. It uses 126-pixel B04/B03/B02 input, the frozen U-derived display mapping, ImageNet normalization, no register tokens, and mean pooling over 81 normalized patch tokens. Every result identifies DINOv2 explicitly and is never labeled DINOv3.
 
 ## Earth-observation baseline
 
@@ -25,7 +23,7 @@ If the OlmoEarth loader cannot be made correct within two implementation days, u
 | Artifact | Status after Week 2 implementation | Blocking action |
 | --- | --- | --- |
 | torchvision ResNet-18 | verified locally | none |
-| DINOv3 ViT-S/16 | access gated | applicant accepts Meta license and supplies the issued URL |
-| OlmoEarth v1.1 Tiny | downloaded and verified at revision `74fab5714f763d6b94f8b1536bdd3300d77f45e8` | integrate its official loader in Week 7 |
+| DINOv2 ViT-S/14 | selected public fallback; adapter verified locally | freeze official source and weight hashes in Week 7 contracts |
+| OlmoEarth v1.1 Tiny | downloaded and verified at revision `74fab5714f763d6b94f8b1536bdd3300d77f45e8`; official minimal loader verified locally | freeze model, source, and normalizer hashes in Week 7 contracts |
 
 Large checkpoints and credentials are ignored. Every experiment record must include the model identifier, resolved revision, checkpoint hash, input bands, preprocessing contract, and trainable parameter count.
