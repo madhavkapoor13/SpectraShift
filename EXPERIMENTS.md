@@ -21,7 +21,7 @@
 | W3 VICReg pilots | complete | Both M3 LR pilots stable; D-to-V probe selected `1e-4`; Week 4 approved |
 | W4 M2-M4 pretraining | complete | Nine complete encoder checkpoints and verified aggregate; Week 5 approved |
 | W5 downstream anchors | complete | M0-M4 at 1%, 10%, and 100% across three seeds; 45 verified V-selected checkpoints; Week 6 approved |
-| W6 complete label curves and RGB control | implemented; execution pending | 45 missing curve runs, three M1RGB controls, U-only RGB percentile contract, and 93-state aggregate |
+| W6 complete label curves and RGB control | complete | 48 verified new runs, 90-state controlled matrix, three M1RGB controls, curve/AULC artifacts, and Week 7 approval |
 
 ## Change policy
 
@@ -42,3 +42,5 @@ All 45 Week 5 runs passed their exact-step, finiteness, checkpoint, prediction, 
 The final I, Finland, and Portugal labels remain sealed through model selection. Any change to the split after pixel inspection creates a new manifest version. A target country is never swapped because of model performance.
 
 Week 6 keeps the Week 5 learning-rate decisions and duration unchanged. It adds the 5%, 25%, and 50% points for M0-M4 and one matched 10% M1RGB control per seed. M1RGB uses the unmodified three-channel ImageNet stem with B04/B03/B02 and an exact U-only 2nd-to-98th percentile preprocessing contract. The aggregate computes controlled curves, paired differences, and normalized trapezoidal AULC over log10 label count; it does not run significance tests with three seeds.
+
+All 48 Week 6 runs passed. Normalized AULC differences, reported as mean plus sample standard deviation across three seeds, were M3-M0 `-0.0404 ± 0.0034`, M3-M2 `+0.0573 ± 0.0069`, and M4-M3 `-0.0047 ± 0.0072`. At 10% labels, the M1RGB-minus-M1 control was `-0.0243 ± 0.0030` mAP. The aggregate reports `week6_complete: true`, `week7_approved: true`, and no evaluation-label access.

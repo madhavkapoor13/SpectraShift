@@ -12,7 +12,7 @@ Both Week 3 M3 VICReg pilots passed their stability and compute gates. The froze
 
 Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels across three seeds. The aggregate verified 45 unique checkpoints, exact step counts, one shared frozen data contract, and no evaluation-label access. On source V, ImageNet initialization produced the highest mean mAP at all three fractions; the SSL encoders did not beat the random baseline under full fine-tuning.
 
-Week 6 is implemented and ready for Kaggle execution. It fills the 5%, 25%, and 50% curve points and adds the three-seed M1RGB ImageNet control. The CPU preparation stage fits exact B04/B03/B02 percentile limits from valid U pixels only. I, Finland, and Portugal remain sealed.
+Week 6 is complete. All 48 new runs passed, producing the full 90-state M0-M4 controlled matrix plus three M1RGB controls. The aggregate verified exact step counts, artifacts, frozen contracts, and label isolation, and approved Week 7. Across the six-point curves, M3 improves substantially over the RGB SSL model M2 but remains below the random multispectral baseline M0; spectral dropout M4 does not improve over M3 on average. I, Finland, and Portugal remain sealed.
 
 ## Setup and verification
 
