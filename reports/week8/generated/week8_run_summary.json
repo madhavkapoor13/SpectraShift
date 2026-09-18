@@ -1,0 +1,190 @@
+{
+  "week8_complete": true,
+  "week9_approved": true,
+  "evaluation_run_count": 111,
+  "prediction_domain_count": 333,
+  "checkpoint_ledger_count": 111,
+  "partition_counts": {
+    "I": 3000,
+    "T-FI": 4000,
+    "T-PT": 4000
+  },
+  "source_supported_class_count": 16,
+  "common_source_class_count": 16,
+  "bootstrap_replicates": 1000,
+  "bootstrap_seed": 1729,
+  "hypothesis_aulc": [
+    {
+      "hypothesis": "H1",
+      "left_model": "M3",
+      "right_model": "M0",
+      "domain": "I",
+      "paired_aulc_difference_mean": -0.04231920926161631,
+      "paired_aulc_difference_sample_std": 0.007238437226605093,
+      "seed_differences": [
+        -0.049151744420819266,
+        -0.03473373061069762,
+        -0.04307215275333204
+      ]
+    },
+    {
+      "hypothesis": "H1",
+      "left_model": "M3",
+      "right_model": "M0",
+      "domain": "Finland",
+      "paired_aulc_difference_mean": -0.032006493352399766,
+      "paired_aulc_difference_sample_std": 0.01448159093377811,
+      "seed_differences": [
+        -0.015350411671324615,
+        -0.03905091304622038,
+        -0.041618155339654295
+      ]
+    },
+    {
+      "hypothesis": "H1",
+      "left_model": "M3",
+      "right_model": "M0",
+      "domain": "Portugal",
+      "paired_aulc_difference_mean": -0.016612009101012626,
+      "paired_aulc_difference_sample_std": 0.006497950551164357,
+      "seed_differences": [
+        -0.011707562888788825,
+        -0.02398187055077383,
+        -0.01414659386347522
+      ]
+    },
+    {
+      "hypothesis": "H1",
+      "left_model": "M3",
+      "right_model": "M0",
+      "domain": "OOD",
+      "paired_aulc_difference_mean": -0.024309251226706203,
+      "paired_aulc_difference_sample_std": 0.009511155992647407,
+      "seed_differences": [
+        -0.013528987280056748,
+        -0.031516391798497134,
+        -0.02788237460156473
+      ]
+    },
+    {
+      "hypothesis": "H2",
+      "left_model": "M3",
+      "right_model": "M2",
+      "domain": "I",
+      "paired_aulc_difference_mean": 0.032460147331631606,
+      "paired_aulc_difference_sample_std": 0.00920461449447876,
+      "seed_differences": [
+        0.025790562764014313,
+        0.04296169685030732,
+        0.028628182380573186
+      ]
+    },
+    {
+      "hypothesis": "H2",
+      "left_model": "M3",
+      "right_model": "M2",
+      "domain": "Finland",
+      "paired_aulc_difference_mean": 0.03901623025124418,
+      "paired_aulc_difference_sample_std": 0.01421788372315382,
+      "seed_differences": [
+        0.05467807250372386,
+        0.035448903912147445,
+        0.026921714337861224
+      ]
+    },
+    {
+      "hypothesis": "H2",
+      "left_model": "M3",
+      "right_model": "M2",
+      "domain": "Portugal",
+      "paired_aulc_difference_mean": 0.02837456868590345,
+      "paired_aulc_difference_sample_std": 0.0025637454442229467,
+      "seed_differences": [
+        0.026754190382322074,
+        0.027039164372534452,
+        0.03133035130285383
+      ]
+    },
+    {
+      "hypothesis": "H2",
+      "left_model": "M3",
+      "right_model": "M2",
+      "domain": "OOD",
+      "paired_aulc_difference_mean": 0.033695399468573826,
+      "paired_aulc_difference_sample_std": 0.006171668371904751,
+      "seed_differences": [
+        0.040716131443022885,
+        0.031244034142341004,
+        0.029126032820357584
+      ]
+    },
+    {
+      "hypothesis": "H3",
+      "left_model": "M4",
+      "right_model": "M3",
+      "domain": "I",
+      "paired_aulc_difference_mean": 0.0031029341895059126,
+      "paired_aulc_difference_sample_std": 0.005807759681208369,
+      "seed_differences": [
+        0.009761263735863834,
+        -0.0009190929464424347,
+        0.00046663177909633813
+      ]
+    },
+    {
+      "hypothesis": "H3",
+      "left_model": "M4",
+      "right_model": "M3",
+      "domain": "Finland",
+      "paired_aulc_difference_mean": -0.0061665227917761896,
+      "paired_aulc_difference_sample_std": 0.012831976581838163,
+      "seed_differences": [
+        -0.020019593123403123,
+        -0.0037928938172971383,
+        0.005312918565371694
+      ]
+    },
+    {
+      "hypothesis": "H3",
+      "left_model": "M4",
+      "right_model": "M3",
+      "domain": "Portugal",
+      "paired_aulc_difference_mean": -0.0020483761913213474,
+      "paired_aulc_difference_sample_std": 0.0014149320775617654,
+      "seed_differences": [
+        -0.003537595896169199,
+        -0.001885746825797896,
+        -0.0007217858519969478
+      ]
+    },
+    {
+      "hypothesis": "H3",
+      "left_model": "M4",
+      "right_model": "M3",
+      "domain": "OOD",
+      "paired_aulc_difference_mean": -0.004107449491548787,
+      "paired_aulc_difference_sample_std": 0.0071222619102149845,
+      "seed_differences": [
+        -0.011778594509786133,
+        -0.002839320321547545,
+        0.0022955663566873175
+      ]
+    }
+  ],
+  "output_hashes": {
+    "domain_metrics.csv": "61ede3f66fdc295ddfe5d6a7fb49244b37fd9912b031bfa8966bf9f07d90bae6",
+    "per_class_metrics.csv": "4b39bfc4e20c50897634ba098d2c5993785f0ad7df4fd7537085090c2c73fdff",
+    "paired_bootstrap.csv": "53e64da5a1f46174d09f03540fbbcbc41eef11ada9767cc0e94c7899737d9675",
+    "domain_rankings.csv": "583a3e87782ce6d510dbf702003dfdf484b247d14951711bc30c38c383aeaa27",
+    "support_contract.json": "787b257d12d8677d287df832816f801274d615eb0e677af0597162a7061b12d3"
+  },
+  "week7_summary_sha256": "7c3c33fc6bb254d58565fa5cbe98bb799f2b6ff4630e91a9a9f26659ab2f273d",
+  "checkpoint_ledger_sha256": "fbf0a98618da16efad73d66f11f81af4a784d17dfbf7b59f52f023d25a5282f3",
+  "evaluation_contract_sha256": "13aad619d46955a6ab7bbd60ec0d55c01ba08b859c32d72e7ae48bf6a4a45b2e",
+  "support_contract_sha256": "787b257d12d8677d287df832816f801274d615eb0e677af0597162a7061b12d3",
+  "model_selection_frozen_before_label_access": true,
+  "model_selection_after_label_access": false,
+  "parameter_updates_after_label_access": false,
+  "evaluation_labels_loaded": true,
+  "week9_implemented": false
+}

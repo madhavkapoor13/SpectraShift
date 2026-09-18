@@ -16,7 +16,7 @@ Week 6 is complete. All 48 new runs passed, producing the full 90-state M0-M4 co
 
 Week 7 is complete. Its aggregate verified 18 foundation checkpoints, two feature caches, 36 linear probes, six k-NN probes, and froze the 111-state checkpoint ledger for final evaluation.
 
-Week 8 is implemented and awaiting private Kaggle execution. It opens the sealed labels only after verifying the exact Week 7 summary and ledger, evaluates all 111 frozen states on I, Finland, and Portugal, and produces paired geographic bootstrap intervals without any retuning or checkpoint selection. See `reports/week8/kaggle_steps.md` for the exact launch order.
+Week 8 is complete and Week 9 is approved. The final aggregate verified all 111 frozen checkpoints and 333 domain prediction artifacts across I, Finland, and Portugal. OlmoEarth ranked first at 1%, 10%, and 100% labels in every domain; controlled multispectral SSL outperformed RGB SSL but did not exceed the random multispectral baseline across the full label-efficiency curve. No retuning or checkpoint selection occurred after label access.
 
 ## Setup and verification
 
