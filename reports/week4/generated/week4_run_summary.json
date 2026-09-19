@@ -1,0 +1,825 @@
+{
+  "week4_complete": true,
+  "week5_approved": true,
+  "run_count": 9,
+  "models": [
+    "M2",
+    "M3",
+    "M4"
+  ],
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "learning_rate": 0.0001,
+  "actual_gpu_hours": 5.973039164954723,
+  "data_contract": {
+    "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+    "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+    "u_patches": 20000
+  },
+  "encoder_sha256": {
+    "week4-m2-seed17": "de4f7317be0330d0e0af1ecce8765477fea65226520277e5ab707206a0925c5b",
+    "week4-m3-seed17": "009f50737c227f6deb9aee102deada9aaaae982a32efbf4bf8005f776eaa9a56",
+    "week4-m4-seed17": "509e4ce911606d4ff8561763491a2341dc90eb3cec668212f063088f8227d9c1",
+    "week4-m2-seed29": "2cc488d40f9017053f4a92fbac40b89c3c4ed2a2aba90f1cdc9fd7b13f759abb",
+    "week4-m3-seed29": "a4112e193e4f52862577a412740bbe389f1579c5636bb1d22c71813d9e8a97c0",
+    "week4-m4-seed29": "81d7c9ebc3180e4276135ef86bf34a413a13b6ec74d2514bf0cae92d5f5dd42c",
+    "week4-m2-seed43": "a734542f27b566f90a066bf07f54d08cef90e46249696aa1da64d98842f81818",
+    "week4-m3-seed43": "0ac69c14c80898780ee3c71900a163b504368faea09676952877875eb47c998d",
+    "week4-m4-seed43": "4ed2d8a42ddda79c1f380d48296447b03f6da3e667b11bbf4911c49bf3c135fc"
+  },
+  "runs": [
+    {
+      "run_id": "week4-m2-seed17",
+      "model_id": "M2",
+      "hypothesis": "H2-H5",
+      "seed": 17,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "52025a520d17bdc9f7eb7fe411cbb5852def1a3d078376fe5d6000f372f9b146",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 3,
+        "adapter": "rgb",
+        "band_order": [
+          "B04",
+          "B03",
+          "B02"
+        ],
+        "encoder_parameters": 11176512,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 1460.504697591,
+      "median_step_seconds": 0.06684363349995692,
+      "peak_cuda_bytes": 700520448,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.347586894199776,
+      "forecast_hours_for_nine_ssl_runs": 3.1282820477979842,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.472226025202335,
+        "invariance": 0.016277185360638376,
+        "variance": 0.04874455384336985,
+        "covariance": 6.846682553107922,
+        "mean_std": 0.9890282054742178,
+        "median_mean_std": 0.9890780448913574,
+        "projector_effective_rank": 59.903175354003906,
+        "encoder_effective_rank": 44.624969482421875
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed17/week4-m2-seed17/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "15acfb61e69195840cf62de218cd6f84d90aa219effe2089bee0a4660eaad150",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed17/week4-m2-seed17/encoder-final.pt",
+      "encoder_export_sha256": "de4f7317be0330d0e0af1ecce8765477fea65226520277e5ab707206a0925c5b",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m3-seed17",
+      "model_id": "M3",
+      "hypothesis": "H1-H2-H5",
+      "seed": 17,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "552012c34542e7b5d96405c69e3cbfeb99fc71042dbe7a648ccfae033d1b7cd9",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2754.251244897,
+      "median_step_seconds": 0.07642902950010466,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.39743095340054424,
+      "forecast_hours_for_nine_ssl_runs": 3.576878580604898,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.434372001733536,
+        "invariance": 0.015482917305631325,
+        "variance": 0.04848582248609418,
+        "covariance": 6.835153494125757,
+        "mean_std": 0.9889380408403201,
+        "median_mean_std": 0.9890574812889099,
+        "projector_effective_rank": 58.84589767456055,
+        "encoder_effective_rank": 44.20725631713867
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed17/week4-m3-seed17/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "a400d4e8ce2845bf1d368799b190a8f6765d9eafbd677b7356b6ae98019422c3",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed17/week4-m3-seed17/encoder-final.pt",
+      "encoder_export_sha256": "009f50737c227f6deb9aee102deada9aaaae982a32efbf4bf8005f776eaa9a56",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m4-seed17",
+      "model_id": "M4",
+      "hypothesis": "H3-H5",
+      "seed": 17,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "47d017659cdf64486e31987d4a825771f76ccaaf4426ac4b86d3941ba7679711",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2829.178183307,
+      "median_step_seconds": 0.07618743550028739,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.3961746646014944,
+      "forecast_hours_for_nine_ssl_runs": 3.56557198141345,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.684351074389923,
+        "invariance": 0.018815022732059542,
+        "variance": 0.05128067287688072,
+        "covariance": 6.931958710535978,
+        "mean_std": 0.9874996447410339,
+        "median_mean_std": 0.9876801371574402,
+        "projector_effective_rank": 58.09853744506836,
+        "encoder_effective_rank": 41.3837890625
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed17/week4-m4-seed17/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "28c3a05108ac0728b1c3bdf6945fb1d5201366116f822df2698fe4a94003a281",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed17/week4-m4-seed17/encoder-final.pt",
+      "encoder_export_sha256": "509e4ce911606d4ff8561763491a2341dc90eb3cec668212f063088f8227d9c1",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m2-seed29",
+      "model_id": "M2",
+      "hypothesis": "H2-H5",
+      "seed": 29,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "6e85264b8d0e0fd65a28ef2dca20f250a61b0ac84f5b57cb542959befd675b60",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 3,
+        "adapter": "rgb",
+        "band_order": [
+          "B04",
+          "B03",
+          "B02"
+        ],
+        "encoder_parameters": 11176512,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 1494.9813946250001,
+      "median_step_seconds": 0.07033609250015616,
+      "peak_cuda_bytes": 700520448,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.365747681000812,
+      "forecast_hours_for_nine_ssl_runs": 3.291729129007308,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.477604037676102,
+        "invariance": 0.016187233856329933,
+        "variance": 0.048776798451749176,
+        "covariance": 6.853503240988805,
+        "mean_std": 0.9892226490072715,
+        "median_mean_std": 0.9893423914909363,
+        "projector_effective_rank": 57.43598937988281,
+        "encoder_effective_rank": 42.05819320678711
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed29/week4-m2-seed29/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "bd50f7625f62c2799ab083622eeda4b7ff2e7ea9c287ac9045b66fa109cee754",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed29/week4-m2-seed29/encoder-final.pt",
+      "encoder_export_sha256": "2cc488d40f9017053f4a92fbac40b89c3c4ed2a2aba90f1cdc9fd7b13f759abb",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m3-seed29",
+      "model_id": "M3",
+      "hypothesis": "H1-H2-H5",
+      "seed": 29,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "69bef8b8b195a17fcf2b23c39c713847ae711bfb15c95f65e64775ac9b092326",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2856.516963656,
+      "median_step_seconds": 0.08026147650002713,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.41735967780014105,
+      "forecast_hours_for_nine_ssl_runs": 3.7562371002012696,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.429338005872873,
+        "invariance": 0.01575501152845577,
+        "variance": 0.04812870661202723,
+        "covariance": 6.832245059502431,
+        "mean_std": 0.9888667714519378,
+        "median_mean_std": 0.9887388944625854,
+        "projector_effective_rank": 57.51664733886719,
+        "encoder_effective_rank": 43.03761291503906
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed29/week4-m3-seed29/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "b6e6c68b17a86d00bc53409f9aa267c03d678db2e28e1a0446f26b9cbebe8a5b",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed29/week4-m3-seed29/encoder-final.pt",
+      "encoder_export_sha256": "a4112e193e4f52862577a412740bbe389f1579c5636bb1d22c71813d9e8a97c0",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m4-seed29",
+      "model_id": "M4",
+      "hypothesis": "H3-H5",
+      "seed": 29,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "9f66b357107419d91fb3151c402d40cb4ec3d31b301ae03c23023ed8de3462a2",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2861.340952382,
+      "median_step_seconds": 0.07994782799960376,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.41572870559793956,
+      "forecast_hours_for_nine_ssl_runs": 3.7415583503814562,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.578935289994265,
+        "invariance": 0.016683496206473462,
+        "variance": 0.04976531522921645,
+        "covariance": 6.917715019140488,
+        "mean_std": 0.9887450734774271,
+        "median_mean_std": 0.988964170217514,
+        "projector_effective_rank": 57.613380432128906,
+        "encoder_effective_rank": 42.24263000488281
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed29/week4-m4-seed29/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "3b248b40a971c6368b9d4c72c17d95e05c362c8cecd1c63ecb6e1ca9575015f1",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed29/week4-m4-seed29/encoder-final.pt",
+      "encoder_export_sha256": "81d7c9ebc3180e4276135ef86bf34a413a13b6ec74d2514bf0cae92d5f5dd42c",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m2-seed43",
+      "model_id": "M2",
+      "hypothesis": "H2-H5",
+      "seed": 43,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "7463f05d4d2a462a51e33a4455854e6c1f0071c416c566bbc942be10174d5459",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 3,
+        "adapter": "rgb",
+        "band_order": [
+          "B04",
+          "B03",
+          "B02"
+        ],
+        "encoder_parameters": 11176512,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 1489.03110576,
+      "median_step_seconds": 0.06929485349999709,
+      "peak_cuda_bytes": 700520448,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.36033323819998486,
+      "forecast_hours_for_nine_ssl_runs": 3.2429991437998638,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.577118794123331,
+        "invariance": 0.017275347468407396,
+        "variance": 0.05059018879173658,
+        "covariance": 6.880480330723983,
+        "mean_std": 0.9880831176653887,
+        "median_mean_std": 0.9877459704875946,
+        "projector_effective_rank": 57.97914505004883,
+        "encoder_effective_rank": 42.633758544921875
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed43/week4-m2-seed43/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "995e19808f5612b4cec97d9d74aa775cab68a604c7d4f2d8c9d911249782e043",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed43/week4-m2-seed43/encoder-final.pt",
+      "encoder_export_sha256": "a734542f27b566f90a066bf07f54d08cef90e46249696aa1da64d98842f81818",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m3-seed43",
+      "model_id": "M3",
+      "hypothesis": "H1-H2-H5",
+      "seed": 43,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "bf3f58e948a347c0e03ac79aa87fee9070de11d2e2673e03402141dffffb1f2d",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2884.21593581,
+      "median_step_seconds": 0.0792509914999755,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.4121051557998726,
+      "forecast_hours_for_nine_ssl_runs": 3.7089464021988534,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.437149509405478,
+        "invariance": 0.014809224106825124,
+        "variance": 0.04876331123523414,
+        "covariance": 6.847836135289608,
+        "mean_std": 0.9888328615671549,
+        "median_mean_std": 0.9892929792404175,
+        "projector_effective_rank": 58.7283821105957,
+        "encoder_effective_rank": 44.95187759399414
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed43/week4-m3-seed43/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "f617b703157783d70e91e4a5e3172898fda8c89cc2c71b8e9912a978b3929709",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed43/week4-m3-seed43/encoder-final.pt",
+      "encoder_export_sha256": "0ac69c14c80898780ee3c71900a163b504368faea09676952877875eb47c998d",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    },
+    {
+      "run_id": "week4-m4-seed43",
+      "model_id": "M4",
+      "hypothesis": "H3-H5",
+      "seed": 43,
+      "learning_rate": 0.0001,
+      "epochs": 60,
+      "steps": 18720,
+      "expected_optimizer_steps": 18720,
+      "config_sha256": "cc6e5fe746d90746ea57cc31a80625d3be48e64ac994852ae353aa7466d2e8dd",
+      "git_commit": "uncommitted",
+      "source_tree_sha256": "a6815756dbc9cc37e2db45b01513364259cc0378b74c4b21ecbdab47ee94f8ca",
+      "data": {
+        "manifest_file_sha256": "71613a489735ff16e0e9cdeffb8a284e54a40d5301781c10d39cc09f87b35390",
+        "manifest_contract_sha256": "0b36a0c6c55f34a8963719af725096dde5ab1dbab72968c13639e31d1099000a",
+        "freeze_summary_file_sha256": "1b1f47342323f88463581a7f9676572353299d80efa9b57d9d898070a644e892",
+        "normalization_sha256": "3b1d191beccde5b85fdced38c81984377e6fb3171683a6df6a9254c38f2a9a05",
+        "u_patches": 20000
+      },
+      "model": {
+        "input_channels": 10,
+        "adapter": "core10",
+        "band_order": [
+          "B02",
+          "B03",
+          "B04",
+          "B08",
+          "B05",
+          "B06",
+          "B07",
+          "B8A",
+          "B11",
+          "B12"
+        ],
+        "encoder_parameters": 11198464,
+        "projector_parameters": 1839360
+      },
+      "hardware": {
+        "device": "cuda",
+        "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu": "Tesla T4",
+        "device_arch": "sm_75",
+        "gpu_count": 2
+      },
+      "elapsed_seconds": 2872.920515809001,
+      "median_step_seconds": 0.07897803300056694,
+      "peak_cuda_bytes": 784762368,
+      "amp_initial_scale": 128.0,
+      "amp_overflow_skips": 0,
+      "forecast_hours_per_60_epoch_run": 0.41068577160294806,
+      "forecast_hours_for_nine_ssl_runs": 3.6961719444265326,
+      "final_epoch": {
+        "epoch": 59,
+        "total": 8.631678660710653,
+        "invariance": 0.01764802417705934,
+        "variance": 0.050656718434765935,
+        "covariance": 6.924060124617356,
+        "mean_std": 0.9875146156320205,
+        "median_mean_std": 0.9874416589736938,
+        "projector_effective_rank": 59.398929595947266,
+        "encoder_effective_rank": 44.217533111572266
+      },
+      "stability": {
+        "finite_losses": true,
+        "projector_std_gate": true,
+        "projector_rank_gate": true
+      },
+      "stability_gate": true,
+      "completion": {
+        "exact_optimizer_steps": true,
+        "zero_amp_overflows": true,
+        "final_checkpoint_verified": true,
+        "encoder_export_verified": true
+      },
+      "completion_gate": true,
+      "week4_compute_gate": true,
+      "checkpoint": "/kaggle/working/spectrashift-week4-seed43/week4-m4-seed43/checkpoint-epoch-060.pt",
+      "checkpoint_sha256": "84e459ce3025ff8c7e373a3a93593b2b3c205fa091c22470dfefb48e7e532831",
+      "encoder_export": "/kaggle/working/spectrashift-week4-seed43/week4-m4-seed43/encoder-final.pt",
+      "encoder_export_sha256": "4ed2d8a42ddda79c1f380d48296447b03f6da3e667b11bbf4911c49bf3c135fc",
+      "pruned_checkpoints": [
+        "checkpoint-epoch-010.pt",
+        "checkpoint-epoch-020.pt",
+        "checkpoint-epoch-030.pt",
+        "checkpoint-epoch-040.pt",
+        "checkpoint-epoch-050.pt"
+      ]
+    }
+  ],
+  "evaluation_labels_loaded": false
+}

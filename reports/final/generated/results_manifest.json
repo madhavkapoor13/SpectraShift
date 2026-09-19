@@ -1,0 +1,70 @@
+{
+  "completion_gates": {
+    "encoder_updates_during_week9": false,
+    "model_selection_after_week8": false,
+    "week8_complete": true,
+    "week9_complete": true
+  },
+  "generated_output_sha256": {
+    "compute_summary.csv": "54505e6f10e585fd9944cdb1c531eff3d888e7c84f178a20876211abdf33a969",
+    "figures/cka_effective_rank.png": "1444460da42d353298a4ce9dbd77813654e704305eccf38732ea012f36dbb2a4",
+    "figures/country_anchor_comparison.png": "2a7473ad59c48ff06d569ea5e1ba27dc55c89336eb021c82a8ebb16a103948bb",
+    "figures/label_efficiency_source_ood.png": "a77d17b8640f20ffe556cdb9bb3c20f4fe9fd8e3c90377372ba3668408bda257",
+    "figures/nearest_neighbor_summary.png": "922cc1dd64cbfddc05a14d37f44bc8a4b5347c5ec8668975d60165776ce369e2",
+    "figures/per_class_spectral_sensitivity.png": "27011aba5605e2fe075004a4cfa014db32bb186b97beb5321fafcbe348e0aa1f",
+    "figures/representation_probe_curves.png": "2b95f59d82c3ee0427c59ad96fba799c990856fc1616199894cedcf7bdc0596c",
+    "figures/spectral_stress_degradation.png": "e4a89a8f044569f679be2d8d95dfb498d21ffc3612d44f715435454f439991fc",
+    "headline_domain_metrics.csv": "c2497d3ee1f66906992b93610da60623f6064f9475a11a6df750fbef773e9860",
+    "headline_stress_metrics.csv": "5b9ae05b11c51bea3f81ee5f2931c1300f952e1b8621b51cdc83e126036692b7",
+    "incident_ledger.csv": "3be4d8f6ecbfffec4ebe6381a4f550f906011193eec53486603a09dc7c243ebb",
+    "run_ledger.csv": "5c3157b8ce28a35f96c4885c88be8a1e3996b6a162d3790ce4977bb57f15ae14"
+  },
+  "private_artifacts_excluded": [
+    "evaluation labels",
+    "prediction logits",
+    "model checkpoints",
+    "patch feature arrays",
+    "nearest_neighbors.parquet",
+    "spectral_sensitivity.parquet"
+  ],
+  "schema_version": 1,
+  "source_artifact_sha256": {
+    "reports/week4/generated/week4_run_summary.json": "4112e22f02501ce4f5617207aeb5536c2c2fe5748d8730e3bf2f523ecccf4c6e",
+    "reports/week5/generated/aggregate/spectrashift-week5-complete/week5_run_summary.json": "79d268d0c8478c35602364de21d6a17e57102717e90bf9db31a551e937e5105c",
+    "reports/week6/generated/week6_run_summary.json": "047d1a05470a55a16d156bbb60f35406cf5851e74482e98242169a4342976bd9",
+    "reports/week7/generated/week7_run_summary.json": "7c3c33fc6bb254d58565fa5cbe98bb799f2b6ff4630e91a9a9f26659ab2f273d",
+    "reports/week8/generated/domain_metrics.csv": "61ede3f66fdc295ddfe5d6a7fb49244b37fd9912b031bfa8966bf9f07d90bae6",
+    "reports/week8/generated/domain_rankings.csv": "583a3e87782ce6d510dbf702003dfdf484b247d14951711bc30c38c383aeaa27",
+    "reports/week8/generated/paired_bootstrap.csv": "53e64da5a1f46174d09f03540fbbcbc41eef11ada9767cc0e94c7899737d9675",
+    "reports/week8/generated/per_class_metrics.csv": "4b39bfc4e20c50897634ba098d2c5993785f0ad7df4fd7537085090c2c73fdff",
+    "reports/week8/generated/support_contract.json": "787b257d12d8677d287df832816f801274d615eb0e677af0597162a7061b12d3",
+    "reports/week8/generated/week8_run_summary.json": "e1b8a4af781190a6efffb8d941cc4ff3da3efc3bb43dcfc51f505799680af28f",
+    "reports/week9/generated/cka_matrix.csv": "d8f07ce4ccc977220df28b58ba9f99c130265ea535cf44dd1e2911b98fdb24cc",
+    "reports/week9/generated/effective_rank.csv": "6b2f346f41cdd077a08ebaf36bcb89df49d40c39e0de208a18f30167f8fcb702",
+    "reports/week9/generated/error_slices.csv": "07cd041d4663901b45619d0255e5ed3b0a3f44731a9727f22fc4dfbf87a1a619",
+    "reports/week9/generated/nearest_neighbor_summary.csv": "57197b07878ffbaf21593aebf73fb4970cc70305f0865cfdfd5103c7f9901780",
+    "reports/week9/generated/probe_aulc.csv": "74e3cdd4ca966411220b30d4e185766973c94bde24135700f3e1cbc6b214a046",
+    "reports/week9/generated/probe_paired_differences.csv": "d0a0f72812f97a3ecaef3bbd76f36b9ecbbe368a0f44a1405c406a00eac988e8",
+    "reports/week9/generated/representation_probes.csv": "84129ef7b2ae9c826fa09b2d26aa292dc9c7f9e0e0ad62fb7a3e453e65f06d4f",
+    "reports/week9/generated/stress_bootstrap.csv": "b8d2d8afadef8a219cd7f584c4b597097ea4de9098eb943e223067eb9dda8815",
+    "reports/week9/generated/stress_metrics.csv": "b5f64697ffedcdd431396c5e950d3d852364ac34636eccfa478e1f9d8bc5aaca",
+    "reports/week9/generated/stress_per_class.csv": "e0ce97e002b143d756949c55eb9a1d4558553f93b8842b2334fbcb0a0087b327",
+    "reports/week9/generated/week9_run_summary.json": "84f339062d833584a5e60999a854170e904b51f4f3603c18a2d6684026511a4c"
+  },
+  "source_commits": {
+    "week4_complete": "11b0b16644407ac05017920ec0635325299ca1c0",
+    "week5_complete": "fdb09a6b941be71240fe2e9e7e3f739b517a6d4d",
+    "week6_complete": "052732644d29048b3d0d3e9403e45f43db70ab4a",
+    "week7_complete": "e9af130134d7b323a5f4315338d462d01cb136e7",
+    "week8_complete": "abc0e0991e5898317328e4e1c7b21cf856d8c185",
+    "week9_complete": "4a94634ea3b38b0a6a596d89daa0a03fed867a1a"
+  },
+  "source_datasets": [
+    "spectrashift-week4-complete",
+    "spectrashift-week5-complete",
+    "spectrashift-week6-complete",
+    "spectrashift-week7-complete",
+    "spectrashift-week8-complete",
+    "spectrashift-week9-complete"
+  ]
+}

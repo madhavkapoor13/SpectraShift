@@ -1,92 +1,87 @@
 # SpectraShift
 
-Self-supervised multispectral representation learning under spectral and geographic shift.
+**Self-supervised multispectral representation learning under geographic and spectral shift.**
 
-SpectraShift studies whether representations learned from Sentinel-2 imagery improve label efficiency and transfer to held-out European countries, and whether limited spectral-group invariance helps robustness without erasing useful land-cover information.
+SpectraShift is a completed controlled study on BigEarthNet v2. It tests whether ten-band Sentinel-2 self-supervision improves label efficiency and held-out-country transfer, and whether spectral-group dropout trades clean accuracy for robustness when bands are missing.
 
-## Current status
+[Read the technical report](REPORT.md) · [Reproduce the release](REPRODUCIBILITY.md) · [Inspect the data contract](DATA.md) · [Review the model card](MODEL_CARD.md)
 
-Weeks 1 through 7 are complete. The private Kaggle artifact `spectrashift-week2-frozen` contains 50,200 verified patches, frozen split `BENv2-SpectraShift-v1`, and U-only normalization. All geographic, support, label-isolation, throughput, and tiny-overfit gates passed.
+![Label efficiency on source I and equal-country OOD](reports/final/generated/figures/label_efficiency_source_ood.png)
 
-Both Week 3 M3 VICReg pilots passed their stability and compute gates. The frozen D-to-V probe selected learning rate `1e-4` with validation macro average precision `0.4142477305`, compared with `0.3753572839` for `3e-4`. Week 4 completed all nine M2-M4 seed runs in 5.9730 measured GPU-hours. The aggregate verified nine unique encoders, exact optimizer-step counts, zero AMP overflows, and no evaluation-label access; Week 5 is approved.
+## Findings
 
-Week 5 completed all 45 M0-M4 downstream anchor runs at 1%, 10%, and 100% labels across three seeds. The aggregate verified 45 unique checkpoints, exact step counts, one shared frozen data contract, and no evaluation-label access. On source V, ImageNet initialization produced the highest mean mAP at all three fractions; the SSL encoders did not beat the random baseline under full fine-tuning.
+- **Multispectral information helped within SSL.** M3 ten-band VICReg exceeded M2 RGB VICReg by `+0.0337 ± 0.0062` normalized OOD AULC.
+- **The selected SSL recipe did not beat stronger controls.** M3 trailed random multispectral M0 by `−0.0243 ± 0.0095` OOD AULC and also trailed ImageNet-initialized M1.
+- **OlmoEarth was the strongest practical baseline.** Its equal-country OOD mAP was `0.3619`, `0.4247`, and `0.4505` at 1%, 10%, and 100% labels.
+- **Spectral dropout changed robustness rather than clean accuracy.** At 10% labels M4−M3 was `−0.0060` on clean OOD, but `+0.0334` with the red-edge group missing and `+0.0404` with SWIR missing.
+- **Geographic shift remained substantial.** Every model declined from source I to held-out Finland and Portugal.
 
-Week 6 is complete. All 48 new runs passed, producing the full 90-state M0-M4 controlled matrix plus three M1RGB controls. The aggregate verified exact step counts, artifacts, frozen contracts, and label isolation, and approved Week 7. Across the six-point curves, M3 improves substantially over the RGB SSL model M2 but remains below the random multispectral baseline M0; spectral dropout M4 does not improve over M3 on average. I, Finland, and Portugal remain sealed.
+The project makes no novelty claim for VICReg or spectral dropout. Its contribution is a reproducible empirical design, matched controls, frozen geographic evaluation, and a mechanism-focused analysis of a mixed result.
 
-Week 7 is complete. Its aggregate verified 18 foundation checkpoints, two feature caches, 36 linear probes, six k-NN probes, and froze the 111-state checkpoint ledger for final evaluation.
+## Experimental scale
 
-Week 8 is complete and Week 9 is approved. The final aggregate verified all 111 frozen checkpoints and 333 domain prediction artifacts across I, Finland, and Portugal. OlmoEarth ranked first at 1%, 10%, and 100% labels in every domain; controlled multispectral SSL outperformed RGB SSL but did not exceed the random multispectral baseline across the full label-efficiency curve. No retuning or checkpoint selection occurred after label access.
+| Component | Verified scale |
+| --- | ---: |
+| Frozen Sentinel-2 subset | 45,000 patches |
+| Unlabeled source pool | 20,000 patches |
+| Label budgets | 1%, 5%, 10%, 25%, 50%, 100% |
+| SSL encoders | 9 |
+| Frozen downstream checkpoints | 111 |
+| Final domains | I, Finland, Portugal |
+| Linear / k-NN probes | 108 / 18 |
+| Spectral stress states | 108 |
+| Successful public ledger records | 363 |
 
-Week 9 is implemented and ready for private Kaggle execution. It completes the 108-state linear-probe and 18-state k-NN matrices, then evaluates the six frozen 10% M3/M4 checkpoints with CKA, effective rank, five spectral perturbations, fixed nearest-neighbour queries, and predeclared error slices. No encoder training or post-Week-8 model selection is permitted.
+## Models
 
-## Setup and verification
+- M0: random ten-band ResNet-18
+- M1: ImageNet-initialized ten-band ResNet-18
+- M2: RGB VICReg ResNet-18
+- M3: ten-band VICReg ResNet-18
+- M4: ten-band VICReg with spectral-group dropout
+- M1RGB: standard RGB ImageNet control
+- M5: DINOv2 ViT-S/14
+- M6: OlmoEarth v1.1 Tiny
+
+DINOv2 is the declared public fallback and is never presented as DINOv3. Foundation results include uncontrolled external-pretraining advantages.
+
+## Quick verification
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -e '.[dev,train]'
+git clone https://github.com/madhavkapoor13/SpectraShift.git
+cd SpectraShift
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -c constraints/python312.txt -e '.[dev,train]'
 .venv/bin/python -m pytest -q
+.venv/bin/python -m scripts.verify_release --root .
 ```
 
-## Data preparation
+Regenerate the public figures and final ledgers:
 
 ```bash
-.venv/bin/python -m scripts.audit_data --config configs/data/week1.yaml
+MPLCONFIGDIR=/tmp/spectrashift-mpl PYTHONPATH=src \
+.venv/bin/python -m scripts.build_final_artifacts \
+  --week8-dir reports/week8/generated \
+  --week9-dir reports/week9/generated \
+  --output-dir reports/final/generated
 ```
 
-The command writes the public candidate manifest, seals I/Finland/Portugal labels under ignored `data/sealed/`, and generates the Week 1 audit evidence. Then run Week 2 in order:
+## Repository map
 
-```bash
-.venv/bin/python -m scripts.preflight --config configs/data/week2.yaml
-.venv/bin/python -m scripts.stage_data --config configs/data/week2.yaml
-.venv/bin/python -m scripts.freeze_split --config configs/data/week2.yaml
-.venv/bin/python -m scripts.compute_normalization --config configs/data/week2.yaml
-.venv/bin/python -m scripts.benchmark_throughput --config configs/data/week2.yaml
-.venv/bin/python -m scripts.smoke_test --config configs/data/week2.yaml
-```
+| Path | Purpose |
+| --- | --- |
+| `src/spectrashift/` | Data, models, training, evaluation, and release code |
+| `configs/` | Frozen data, SSL, downstream, evaluation, and analysis contracts |
+| `scripts/` | Reproducible command interfaces |
+| `notebooks/kaggle/` | Numbered offline execution notebooks |
+| `reports/week*/generated/` | Compact verified aggregate evidence |
+| `reports/final/generated/` | Final figures, ledgers, hashes, and release summary |
+| `tests/` | Scientific and release invariants |
 
-Run `scripts.seal_evaluation` only in the offline evaluation environment after model selection. It is intentionally absent from the Kaggle development launcher.
+## Artifact policy
 
-## Week 3 pilots
+The repository intentionally excludes raw imagery, staged arrays, evaluation labels, logits, model weights, checkpoint states, cached patch features, and patch-level neighbour records. These remain in private Kaggle datasets. Public aggregates retain hashes that bind them to the frozen experiment artifacts. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) and [THIRD_PARTY.md](THIRD_PARTY.md).
 
-The two fixed pilot configurations are `configs/ssl/week3_m3_lr1e4.yaml` and `configs/ssl/week3_m3_lr3e4.yaml`. They can be run directly with `scripts.train_ssl` and evaluated with `scripts.probe_ssl`; the Kaggle launcher `notebooks/kaggle/04_week3_vicreg_pilots.ipynb` performs both runs and applies the predeclared selection rule.
+## License and citation
 
-```bash
-.venv/bin/python -m scripts.train_ssl --config configs/ssl/week3_m3_lr3e4.yaml --seed 17
-.venv/bin/python -m scripts.probe_ssl --config configs/ssl/week3_m3_lr3e4.yaml --checkpoint <checkpoint.pt>
-```
-
-## Week 4 pretraining
-
-Week 4 uses the nine immutable `week4_<model>_seed<seed>.yaml` configurations. On Kaggle, run `05a`, `05b`, and `05c` sequentially, preserve each output as a private seed dataset, then run `06_week4_aggregate.ipynb`. See `reports/week4/kaggle_steps.md` for the exact workflow.
-
-## Week 5 downstream anchors
-
-Week 5 uses `configs/downstream/week5.yaml` and notebooks `07` through `10`. Run the contracts job, bounded LR pilots, three sequential seed bundles, and CPU aggregate in that order. See `reports/week5/kaggle_steps.md` for exact inputs and output dataset names.
-
-## Week 6 complete curves
-
-Week 6 uses `configs/downstream/week6.yaml` and notebooks `11` through `13`. Run the RGB-contract job, the three sequential 16-run seed bundles, and the CPU aggregate. See `reports/week6/kaggle_steps.md` for exact inputs, gates, recovery steps, and private output names.
-
-## Week 7 foundation baselines
-
-Week 7 uses `configs/downstream/week7.yaml` and notebooks `14` through `18`. The CPU preparation job pins the official public model artifacts, the GPU jobs run pilots, foundation anchors, and frozen probes, and the final CPU aggregate freezes the Week 8 checkpoint ledger. DINOv2 is always identified explicitly and must never be reported as DINOv3.
-
-## Week 8 frozen evaluation
-
-Week 8 uses `configs/eval/week8.yaml` and notebooks `19` through `21`. The CPU preparation job seals the exact final evaluation IDs; three sequential GPU notebooks generate label-free predictions for all registered checkpoints; and the CPU aggregate computes domain metrics, equal-country OOD results, AULC, rankings, and paired geographic uncertainty.
-
-## Week 9 representation and robustness analysis
-
-Week 9 uses `configs/analysis/week9.yaml` and notebooks `22` through `25`. The CPU preparation job freezes all query and analysis contracts, the probe notebook completes M1-M6 source-V representation evidence, three sequential GPU notebooks run M3/M4 diagnostics, and the CPU aggregate produces hypothesis-linked tables and figures. See `reports/week9/kaggle_steps.md` for exact private inputs and completion gates.
-
-## Research controls
-
-- Finland and Portugal are fixed geographic targets.
-- Any MGRS tile touching a target country is excluded from source pools.
-- Repeat acquisitions at the same tile/row/column share one location key.
-- I and target-label statistics are not computed during development.
-- U, I, Finland, and Portugal labels are stripped from public manifests.
-- Random state and input hashes are recorded with every artifact.
-
-See [DATA.md](DATA.md), [EXPERIMENTS.md](EXPERIMENTS.md), and [the project plan](docs/spectrashift-project-plan.pdf).
+SpectraShift code and authored documentation are released under the [MIT License](LICENSE). BigEarthNet, DINOv2, OlmoEarth, and other upstream assets retain their own terms. Citation metadata is provided in [CITATION.cff](CITATION.cff).

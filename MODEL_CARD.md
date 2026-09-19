@@ -27,3 +27,15 @@ If the OlmoEarth loader cannot be made correct within two implementation days, u
 | OlmoEarth v1.1 Tiny | downloaded and verified at revision `74fab5714f763d6b94f8b1536bdd3300d77f45e8`; official minimal loader verified locally | freeze model, source, and normalizer hashes in Week 7 contracts |
 
 Large checkpoints and credentials are ignored. Every experiment record must include the model identifier, resolved revision, checkpoint hash, input bands, preprocessing contract, and trainable parameter count.
+
+## Final evaluation results
+
+The frozen ledger contains 111 downstream checkpoints: 90 M0-M4 model/fraction/seed states, three M1RGB controls, and 18 M5/M6 foundation states. Final mAP uses the 16 predeclared source-supported classes.
+
+OlmoEarth was strongest at every evaluated anchor fraction in I, Finland, and Portugal. M3 multispectral VICReg consistently exceeded M2 RGB VICReg across the controlled label-efficiency curve, but M0 random multispectral and M1 ImageNet multispectral remained stronger. M4 spectral dropout was approximately tied with M3 on clean I and slightly lower on clean equal-country OOD.
+
+Under the frozen 10%-label stress protocol, M4 improved equal-country OOD mAP relative to M3 by `0.0334` with the red-edge group removed and `0.0404` with SWIR removed. This is a robustness trade-off, not evidence that M4 is the best clean-data model.
+
+## Intended use and limitations
+
+The checkpoints and results support research on label efficiency, geographic transfer, and missing-band sensitivity for this bounded BigEarthNet v2 protocol. They are not validated environmental measurements, operational land-cover products, or evidence of global transfer. Foundation-model comparisons are contextual because their pretraining data, dates, geography, and scale are not controlled. Model weights are kept private; the public repository provides contracts, aggregate evidence, and hashes.

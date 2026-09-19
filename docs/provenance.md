@@ -1,6 +1,6 @@
 # Dataset and method provenance
 
-Checked 13 September 2026.
+Checked 19 September 2026.
 
 ## BigEarthNet v2
 
@@ -20,5 +20,28 @@ The mirror file matches the checksum published with the Zenodo release. The clea
 - Paper: https://arxiv.org/abs/2105.04906
 - Reference implementation: https://github.com/facebookresearch/vicreg
 
-Week 3 will implement the declared objective directly and validate its reductions against the paper and reference code.
+SpectraShift implements the declared objective directly and validates its reductions against the paper and reference code. Nine final M2-M4 encoders were trained from random initialization; no reference weights were redistributed.
 
+## DINOv2
+
+- Source: https://github.com/facebookresearch/dinov2
+- Pinned source revision: `7764ea0f912e53c92e82eb78a2a1631e92725fc8`
+- Source archive SHA-256: `04276715cddb29d45d05bff3a6fc132224dc27749b279ac98ad2ce4620e20d48`
+- Official ViT-S/14 weight SHA-256: `b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9`
+- Pinned repository license: Apache License 2.0
+
+The project uses DINOv2 as the declared public fallback and never labels it DINOv3. The checkpoint is not redistributed.
+
+## OlmoEarth v1.1 Tiny
+
+- Model card: https://huggingface.co/allenai/OlmoEarth-v1_1-Tiny
+- Pinned model revision: `74fab5714f763d6b94f8b1536bdd3300d77f45e8`
+- Minimal-loader revision: `28eb18a852be74871a357fbcca7676f790a55c66`
+- Minimal-loader archive SHA-256: `e9a875819466cd8f5b0d5693ec3fbd141fbc3cc26230e5b859542b93e4029efe`
+- Terms: OlmoEarth Artifact License and Ai2 Responsible Use Guidelines
+
+The model, official normalizer, and checkpoint remain external artifacts. SpectraShift records their hashes and adapter contract but does not redistribute them.
+
+## Public release boundary
+
+The SpectraShift MIT license applies only to authored code and documentation. BigEarthNet imagery, foundation checkpoints, and upstream source retain their own terms. `THIRD_PARTY.md` provides the release-facing notice, and `reports/final/generated/results_manifest.json` binds public aggregate evidence to the frozen private artifacts.

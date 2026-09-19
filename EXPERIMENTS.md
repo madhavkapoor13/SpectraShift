@@ -22,7 +22,10 @@
 | W4 M2-M4 pretraining | complete | Nine complete encoder checkpoints and verified aggregate; Week 5 approved |
 | W5 downstream anchors | complete | M0-M4 at 1%, 10%, and 100% across three seeds; 45 verified V-selected checkpoints; Week 6 approved |
 | W6 complete label curves and RGB control | complete | 48 verified new runs, 90-state controlled matrix, three M1RGB controls, curve/AULC artifacts, and Week 7 approval |
-| W7 foundation baselines | implemented; Kaggle execution pending | Pinned DINOv2 and OlmoEarth contracts, six pilots, 18 full anchors, 36 linear probes, six k-NN probes, and Week 8 approval aggregate |
+| W7 foundation baselines | complete | Pinned DINOv2 and OlmoEarth contracts, six pilots, 18 full anchors, 36 linear probes, six k-NN probes, and Week 8 approval aggregate |
+| W8 frozen evaluation | complete | 111 frozen checkpoints, 333 prediction-domain artifacts, uncertainty tables, and no post-label model selection |
+| W9 representation and stress analysis | complete | 108 linear probes, 18 k-NN probes, six diagnostic checkpoints, 108 stress states, CKA/rank, neighbours, and error slices |
+| W10 report and release | complete | Markdown report, compact evidence, deterministic figures, release verifier, public documentation, and v1.0 package |
 
 ## Change policy
 
@@ -47,3 +50,9 @@ Week 6 keeps the Week 5 learning-rate decisions and duration unchanged. It adds 
 All 48 Week 6 runs passed. Normalized AULC differences, reported as mean plus sample standard deviation across three seeds, were M3-M0 `-0.0404 ± 0.0034`, M3-M2 `+0.0573 ± 0.0069`, and M4-M3 `-0.0047 ± 0.0072`. At 10% labels, the M1RGB-minus-M1 control was `-0.0243 ± 0.0030` mAP. The aggregate reports `week6_complete: true`, `week7_approved: true`, and no evaluation-label access.
 
 Week 7 uses the declared DINOv2 ViT-S/14 fallback as M5 and OlmoEarth v1.1 Tiny as M6. Both receive bounded 10%-label pilots before the 18-run 1%/10%/100% anchor matrix. Frozen foundation features support all six label fractions for linear probes and 10% k-NN probes. Checkpoint selection remains source-V-only; I, Finland, and Portugal stay sealed until Week 8.
+
+Week 8 froze and evaluated all 111 registered checkpoints exactly once on I, Finland, and Portugal. The aggregate reports 333 verified prediction-domain artifacts. OlmoEarth ranked first at all matched anchor fractions and domains. M3 exceeded RGB M2 but remained below random multispectral M0 across the full final curves. No model selection or parameter update occurred after label access.
+
+Week 9 completed the full M1-M6 frozen representation matrix and the M3/M4 diagnostic suite. M4 did not improve clean OOD transfer, but it reduced degradation under missing red-edge and SWIR groups. Matching-seed CKA values ranged from `0.8276` to `0.8946`, while effective-rank changes varied by seed. Nearest-neighbour results are descriptive only.
+
+Week 10 imports only compact, hash-verified aggregates. The public `run_ledger.csv` contains 363 successful records, while `incident_ledger.csv` records rejected attempts and recovery commits. No Week 10 operation trains a model, changes a threshold, or reads private patch-level labels.

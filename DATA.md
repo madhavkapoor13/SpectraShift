@@ -42,3 +42,11 @@ Public manifests expose labels only for D and V. Week 1 writes I, Finland, and P
 Raster bounds are projected to EPSG:3035. Final U and D footprints must remain at least 2.4 km from V, I, Finland, and Portugal evaluation footprints. V must remain at least 2.4 km from I and both target domains; I must remain at least 2.4 km from both target domains. No core band may exceed 1% invalid pixels. Evaluation uncertainty groups use fixed 12 km EPSG:3035 blocks with origin `(0, 0)`.
 
 The final split is approved only when all caps are met, IDs and location keys are unique, every evaluation partition spans at least five blocks, and at least 15 source classes meet the declared D support rule.
+
+## Final evaluation state
+
+Week 8 opened the sealed labels only after the 111-checkpoint ledger was frozen. The final one-to-one join contains exactly 3,000 I, 4,000 Finland, and 4,000 Portugal rows. Every evaluation prediction retains patch IDs but never duplicates labels. The aggregate verified 333 domain prediction files, frozen source-V thresholds, unchanged checkpoint hashes, and no parameter updates after label access.
+
+Sixteen source-supported classes have positive and negative support in every final domain. All 19 classes remain in `per_class_metrics.csv`; unsupported slice metrics use NA rather than silently changing the reporting set. Public Git excludes the sealed labels, candidate-label table, logits, staged rasters, patch features, and patch-level diagnostics.
+
+The public data evidence is limited to manifests without evaluation labels, aggregate metrics, counts, hashes, and figures. See `reports/week8/generated/support_contract.json` and `reports/final/generated/results_manifest.json` for the final evidence chain.

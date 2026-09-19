@@ -1,0 +1,23 @@
+{
+  "final_figure_count": 7,
+  "headline_values": {
+    "m3_minus_m0_ood_10": -0.028659523023634448,
+    "m3_minus_m2_ood_10": 0.021699513483060318,
+    "m4_minus_m3_clean_ood_10": -0.006004794499841352,
+    "m4_minus_m3_missing_b08_ood_10": 0.007336904896097933,
+    "m4_minus_m3_missing_red_edge_ood_10": 0.033390849975002655,
+    "m4_minus_m3_missing_swir_ood_10": 0.04041724127386346,
+    "olmoearth_ood_1": 0.36189398234985726,
+    "olmoearth_ood_10": 0.42468446226044804,
+    "olmoearth_ood_100": 0.45047886844725005
+  },
+  "incident_ledger_count": 7,
+  "new_training_or_model_selection": false,
+  "private_artifact_violation_count": 0,
+  "release_approved": true,
+  "results_manifest_sha256": "102ce0db13f039e7012e50019b4f7c71799ce628d06f6183d01df9f17c5155a6",
+  "successful_run_ledger_count": 363,
+  "week10_complete": true,
+  "week8_complete": true,
+  "week9_complete": true
+}

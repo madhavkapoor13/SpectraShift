@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use SpectraShift, please cite this software and technical report."
+title: "SpectraShift: Self-Supervised Multispectral Representation Learning"
+type: software
+authors:
+  - family-names: Kapoor
+    given-names: Madhav
+repository-code: "https://github.com/madhavkapoor13/SpectraShift"
+url: "https://github.com/madhavkapoor13/SpectraShift"
+version: 1.0.0
+date-released: 2026-09-19
+license: MIT
+keywords:
+  - remote sensing
+  - self-supervised learning
+  - multispectral imagery
+  - geographic transfer
+  - VICReg
+preferred-citation:
+  type: report
+  title: "SpectraShift: Self-Supervised Multispectral Representation Learning under Geographic and Spectral Shift"
+  authors:
+    - family-names: Kapoor
+      given-names: Madhav
+  year: 2026
+  url: "https://github.com/madhavkapoor13/SpectraShift/blob/main/REPORT.md"

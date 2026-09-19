@@ -1,0 +1,7 @@
+stage,gpu_hours,measurement_source
+week4,5.973039165,actual_gpu_hours
+week5,3.429911644,actual_gpu_hours
+week6,2.519744673,sum(new_runs.elapsed_seconds)/3600
+week7,1.543061447,actual_gpu_hours
+week8,,not recorded in compact aggregate
+week9,,not recorded in compact aggregate

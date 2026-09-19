@@ -1,0 +1,8 @@
+date,stage,symptom,root_cause,resolution,recovery_commit,scientific_effect
+2026-09-17,week5,Kaggle source extraction persisted into output,Source bundle unpacked under a durable path,Moved extraction to ephemeral storage,634e2cd,none; affected output was rejected and regenerated before aggregation
+2026-09-17,week5,Duplicate aggregate inputs,Equivalent summaries were attached through multiple datasets,Deduplicated by content hash,17e0ca9,none; affected output was rejected and regenerated before aggregation
+2026-09-17,week5,Downloaded seed ZIPs were not accepted,Launcher expected direct dataset directories,Added verified ZIP discovery,0bbde4c,none; affected output was rejected and regenerated before aggregation
+2026-09-18,week7,k-NN calibration exceeded the probability boundary,Float32 convex aggregation produced tiny boundary excursions,Clipped to the declared probability interval,c67c20b,none; affected output was rejected and regenerated before aggregation
+2026-09-19,week9,Duplicate-location exclusion failed for string patch IDs,Pandas group labels were treated as integer positions,Replaced labels with explicit positional indices,86adad0,none; affected output was rejected and regenerated before aggregation
+2026-09-19,week9,Offline diagnostics lacked the optional mgrs wheel,Runtime geographic conversion imported an unavailable package,Removed the optional runtime dependency,af82dbe,none; affected output was rejected and regenerated before aggregation
+2026-09-19,week9,Temporary fallback omitted cross-tile distances,Within-tile indices cannot measure cross-tile separation,Implemented and tested MGRS decoding through pinned pyproj,4a94634,none; affected output was rejected and regenerated before aggregation
