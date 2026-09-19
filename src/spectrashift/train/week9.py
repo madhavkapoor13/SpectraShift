@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import gc
+import functools
 import hashlib
 import json
 import math
@@ -564,15 +565,52 @@ def _label_jaccard(left: Sequence[str], right: Sequence[str]) -> float:
     return float(len(first & second) / len(union)) if union else 1.0
 
 
+_MGRS_COLUMN_SETS = ("ABCDEFGH", "JKLMNPQR", "STUVWXYZ")
+_MGRS_ROW_SET = "ABCDEFGHJKLMNPQRSTUV"
+_MGRS_BAND_MIN_NORTHING = {
+    "C": 1_100_000, "D": 2_000_000, "E": 2_800_000, "F": 3_700_000,
+    "G": 4_600_000, "H": 5_500_000, "J": 6_400_000, "K": 7_300_000,
+    "L": 8_200_000, "M": 9_100_000, "N": 0, "P": 800_000,
+    "Q": 1_700_000, "R": 2_600_000, "S": 3_500_000, "T": 4_400_000,
+    "U": 5_300_000, "V": 6_200_000, "W": 7_000_000, "X": 7_900_000,
+}
+
+
+@functools.lru_cache(maxsize=None)
+def _mgrs_tile_center(tile: str) -> tuple[float, float]:
+    """Return the WGS84 center of a 100 km MGRS tile without the mgrs package."""
+    from pyproj import Transformer
+
+    value = str(tile).removeprefix("T")
+    if len(value) < 4:
+        raise ValueError(f"Invalid MGRS tile: {tile}")
+    zone = int(value[:-3])
+    band, column, row = value[-3:]
+    if not 1 <= zone <= 60 or band not in _MGRS_BAND_MIN_NORTHING:
+        raise ValueError(f"Invalid MGRS tile: {tile}")
+    columns = _MGRS_COLUMN_SETS[(zone - 1) % 3]
+    if column not in columns or row not in _MGRS_ROW_SET:
+        raise ValueError(f"Invalid MGRS tile: {tile}")
+    easting = (columns.index(column) + 1) * 100_000 + 50_000
+    row_origin = 0 if zone % 2 else 5
+    northing = ((_MGRS_ROW_SET.index(row) - row_origin) % 20) * 100_000
+    while northing < _MGRS_BAND_MIN_NORTHING[band]:
+        northing += 2_000_000
+    northing += 50_000
+    epsg = (32600 if band >= "N" else 32700) + zone
+    longitude, latitude = Transformer.from_crs(epsg, 4326, always_xy=True).transform(easting, northing)
+    return float(latitude), float(longitude)
+
+
 def _geographic_distance_km(left, right) -> float:
     if str(left.mgrs_tile) == str(right.mgrs_tile):
         return float(1.2 * math.hypot(
             int(left.h_order) - int(right.h_order), int(left.v_order) - int(right.v_order)
         ))
-    # h_order/v_order are directly comparable only inside one MGRS tile. Keep
-    # cross-tile distance unavailable and retain the explicit tile/block flags
-    # instead of introducing an optional geodesy dependency in offline Kaggle.
-    return float("nan")
+    lat1, lon1 = map(math.radians, _mgrs_tile_center(str(left.mgrs_tile)))
+    lat2, lon2 = map(math.radians, _mgrs_tile_center(str(right.mgrs_tile)))
+    value = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+    return float(6371.0088 * 2 * math.asin(min(1.0, math.sqrt(value))))
 
 
 def _load_week8_clean(roots: Sequence[str | Path], seed: int, run_id: str) -> tuple[dict[str, object], Path]:
@@ -813,7 +851,7 @@ def run_week9_diagnostics(
                     "derived_geographic_distance_km": _geographic_distance_km(query_row, neighbor_row),
                     "geographic_distance_scope": (
                         "within-mgrs-tile" if str(query_row.mgrs_tile) == str(neighbor_row.mgrs_tile)
-                        else "cross-tile-unavailable"
+                        else "cross-tile-center"
                     ),
                 })
         neighbor_frames.append(pd.DataFrame(nearest_rows))

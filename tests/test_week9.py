@@ -20,6 +20,7 @@ from spectrashift.train.week9 import (
     deterministic_patch_ids,
     _forbidden_locations,
     _geographic_distance_km,
+    _mgrs_tile_center,
 )
 
 
@@ -101,7 +102,10 @@ def test_geographic_distance_needs_no_optional_mgrs_dependency() -> None:
             self.mgrs_tile, self.h_order, self.v_order = tile, h, v
 
     assert _geographic_distance_km(Row("T29UPU", 10, 20), Row("T29UPU", 13, 24)) == pytest.approx(6.0)
-    assert np.isnan(_geographic_distance_km(Row("T29UPU", 10, 20), Row("T30TYN", 13, 24)))
+    latitude, longitude = _mgrs_tile_center("T29UPU")
+    assert latitude == pytest.approx(52.77895312737777)
+    assert longitude == pytest.approx(-6.776067334020862)
+    assert _geographic_distance_km(Row("T29UPU", 10, 20), Row("T34WFS", 13, 24)) > 1_000
 
 
 def _synthetic_probe_summary() -> dict[str, object]:
